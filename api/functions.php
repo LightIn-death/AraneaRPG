@@ -1,33 +1,48 @@
 <?php
 require_once "connect.php";
 
+function login($email, $password)
+{
+    global $pdo;
+    $query = $pdo->prepare("SELECT * FROM public.users where email = :email");
+    $query->execute(['email' => $email]);
+    $data = $query->fetch();
+    if (password_verify($password, $data['password'])) {
+
+        return $data;
+    } else {
+        return 'fuck';
+    }
+}
 
 
-
-
-
-
-function createUser($pseudo, $email, $password, $age, $sex, $desc, $image ){
+function register($pseudo, $email, $password, $age, $sex, $desc, $image)
+{
 
     global $pdo;
-    $password  = password_hash($password,PASSWORD_BCRYPT);
+    $password = password_hash($password, PASSWORD_BCRYPT);
     $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex) VALUES (:pseudo,:email,:pass,:age,:sex);");
     $query->execute(['pseudo' => $pseudo, 'email' => $email, 'pass' => $password, 'age' => $age, 'sex' => $sex]);
 
 }
 
+function getUserIdByToken($userToken){}
+
+function generateTokenForUser($userId){}
+
+function deleteAccount($userToken){}
+
+function getRandomAccount($userId){}
+
+function launchBattle($userId,$targetId){}
+
+function getConvs($userToken){}
 
 
-function loginUser($email, $password){
-    global $pdo;
-    $query = $pdo->prepare("SELECT * FROM public.users where email = :email");
-    $query->execute(['email' => $email ]);
-    $data = $query->fetch();
-   if(password_verify($password, $data['password'])){
 
-       return $data;
-   }else {return 'fuck';}
-}
+function getMessages($){}
+
+
 
 
 
@@ -95,7 +110,6 @@ function getAllMessages()
 }
 
 
-
 function userLogin($email, $password)
 {
     global $pdo;
@@ -104,10 +118,10 @@ function userLogin($email, $password)
     $row = $query->fetchAll();
 
     if (empty($row)) {
-        
+
     }
     foreach ($row as $r) {
-        if ($r["email"] == $email AND $r["password"] == $password) {
+        if ($r["email"] == $email and $r["password"] == $password) {
             /*Do everything as connected*/
             return $r;
         }
@@ -124,9 +138,6 @@ function userInscription($nom, $prenom, $email, $tel, $password)
     $query = $pdo->prepare("INSERT INTO `personnes` (`id_personnes`, `nom`, `prenom`, `email`, `tel`, `password`, `admin`) VALUES (NULL, :nom, :prenom, :email, :tel, :password, '0')");
     $query->execute(['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'tel' => $tel, 'password' => $password]);
 }
-
-
-
 
 
 function EtudeAdd($nom, $reference)

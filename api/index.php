@@ -13,39 +13,53 @@ $action = filter_input(INPUT_POST, "action");
 //  return "fuck" si fail
 
 
-
-
-switch($action){
+switch ($action) {
     case "register":
         $pseudo = filter_input(INPUT_POST, "pseudo");
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
         $age = filter_input(INPUT_POST, "age");
         $sex = filter_input(INPUT_POST, "sex");
-        createUser("LightIn","breval2000@live.fr","123",19,true,"","");
+        register($pseudo, $email, $password, $age, $sex, "", "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png");
         $data = "ok";
-    break;
+        break;
     case "login":
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
+        $data = login($email, $password);
 
-        $data = loginUser($email,$password);
+        break;
+    case "del_account":
 
-    break;
-    case "lo ":
-        $email= filter_input(INPUT_POST, "email");
+        $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
-       $data = userLogin($email,$password);
-    break;
+        $data = userLogin($email, $password);
+        break;
+
+
+
+
+
+
+
+
+
+        case "lo ":
+        $email = filter_input(INPUT_POST, "email");
+        $password = filter_input(INPUT_POST, "password");
+        $data = userLogin($email, $password);
+        break;
+
+
 
 
     case "efefefefef ":
         $data = getAllMessages();
-    break;
+        break;
 
     case "":
         $data = "fuck";
-    break;
+        break;
 }
 if (is_null($action)) {
     $data = "fuck";
