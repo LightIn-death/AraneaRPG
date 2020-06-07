@@ -15,7 +15,6 @@ function login($email, $password)
     }
 }
 
-
 function register($pseudo, $email, $password, $age, $sex, $desc, $image)
 {
 
@@ -24,23 +23,101 @@ function register($pseudo, $email, $password, $age, $sex, $desc, $image)
     $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex) VALUES (:pseudo,:email,:pass,:age,:sex);");
     $query->execute(['pseudo' => $pseudo, 'email' => $email, 'pass' => $password, 'age' => $age, 'sex' => $sex]);
 
+
 }
 
-function getUserIdByToken($userToken){}
+function getUserIdByToken($userToken){
 
-function generateTokenForUser($userId){}
+    global $pdo;
+    $query = $pdo->prepare("select * from tokens where token = :token;");
+    $query->execute(['token' => $userToken]);
+    return $query->fetch();
 
-function deleteAccount($userToken){}
+}
 
-function getRandomAccount($userId){}
+function deleteTokenForUser($userId){
 
-function launchBattle($userId,$targetId){}
+    global $pdo;
+    $query = $pdo->prepare("delete from tokens where owner = :userId;");
+    $query->execute(['userId' => $userId]);
+
+}
+
+function generateTokenForUser($userId){
+
+    global $pdo;
+    $token = uniqid('', true);
+    $query = $pdo->prepare("Insert into tokens (owner,token) VALUES (:userId,:token);");
+    $query->execute(['userId' => $userId, 'token' => $token]);
+    return $token;
+
+
+}
+
+function deleteAccount($userToken){
+
+    global $pdo;
+    $query = $pdo->prepare("  delete from users using tokens where users.id = tokens.owner and tokens.token = :token ;");
+    $query->execute(['token' => $userToken]);
+
+
+
+}
+
+function getRandomAccount($userId){
+
+
+    global $pdo;
+    $id =     $token = uniqid('', true);
+    $query = $pdo->prepare("Insert into convs (id,winner,looser,lastmessage,lastmessagedate,notreadby,score)
+ VALUES (:id,:winner,:looser,'',null,null,0);");
+    $query->execute(['id' => $id,'winner' => $winner,'looser' => $looser,]);
+
+
+
+}
+
+function launchBattle($userId,$targetId){
+
+
+}
+
+function createConvs($winner,$looser){
+
+    global $pdo;
+    $id =     $token = uniqid('', true);
+    $query = $pdo->prepare("Insert into convs (id,winner,looser,lastmessage,lastmessagedate,notreadby,score)
+ VALUES (:id,:winner,:looser,'',null,null,0);");
+    $query->execute(['id' => $id,'winner' => $winner,'looser' => $looser,]);
+
+
+
+
+
+}
 
 function getConvs($userToken){}
 
+function updateConvs(){}
 
+function getMessages($convId){}
 
-function getMessages($){}
+function getUserProfile($userId){}
+
+function updateProfile($userToken){}
+
+function getPackForUser($userId){}
+
+function openPackId($userToken,$packId){}
+
+function getSkills($userId){}
+
+function addPointToSkills($userToken,$category){}
+
+function getStoreItems(){}
+
+function buyItem($itemId){}
+
 
 
 
