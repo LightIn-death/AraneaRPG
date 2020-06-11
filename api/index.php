@@ -30,9 +30,11 @@ switch ($action) {
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
         $data = login($email, $password);
+      //  var_dump($data);
+        if($data != 'fuck'){
         deleteTokenForUser($data['id']);
         $data['token'] = generateTokenForUser($data['id']);
-        break;
+    } break;
     case "del_account":
         $userToken = filter_input(INPUT_POST, "token");
         deleteAccount($userToken);
