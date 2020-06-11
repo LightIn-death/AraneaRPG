@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:Aranea/constants.dart';
@@ -7,6 +8,7 @@ class RoundedTextInput extends StatelessWidget {
   final Color color, textColor;
   final String textHint;
   final IconData icon;
+  final TextEditingController controller;
   final num width;
   final bool password;
   final ValueChanged<String> onChanged;
@@ -20,6 +22,7 @@ class RoundedTextInput extends StatelessWidget {
     this.icon = Icons.sms,
     this.onChanged,
     this.password = false,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -34,6 +37,7 @@ class RoundedTextInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(29),
       ),
       child: TextField(
+        controller: controller,
         obscureText: password,
         onChanged: onChanged,
         decoration: InputDecoration(

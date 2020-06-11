@@ -11,14 +11,14 @@ class InboxPage extends StatefulWidget {
 }
 
 class _InboxState extends State<InboxPage> {
-  Future<List<Convs>> _getUser() async {
+  Future<List<Conv>> _getUser() async {
     var data = await http
         .get("http://www.json-generator.com/api/json/get/bQWLUGNLvS?indent=2");
     var jsonData = json.decode(data.body);
-    List<Convs> convs = [];
+    List<Conv> convs = [];
     for (var c in jsonData) {
-      Convs conv =
-          Convs(c["index"], c["about"], c["name"], c["email"], c["picture"]);
+      Conv conv =
+          Conv(c["index"], c["about"], c["name"], c["email"], c["picture"]);
       convs.add(conv);
     }
     print("Nombre d'object recuperer :  " + convs.length.toString());
@@ -53,9 +53,7 @@ class _InboxState extends State<InboxPage> {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
-                                builder: (context) => ProfilePage(
-                                    
-                                    )));
+                                builder: (context) => ProfilePage()));
                       },
                     );
                   });

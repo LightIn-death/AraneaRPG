@@ -6,3 +6,4 @@ const kPrimaryLightColor = Color(0xFFE5989B);
 const kSecondaryColor = Color(0xFFFFB4A2);
 const kSecondaryLightColor = Color(0xFFFFCDB2);
 
+const kApiUrl = "http://192.168.1.27/araneaRPG/api/";
