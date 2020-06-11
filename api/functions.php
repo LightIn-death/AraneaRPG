@@ -23,7 +23,12 @@ function register($pseudo, $email, $password, $age, $sex, $desc, $image)
     $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex) VALUES (:pseudo,:email,:pass,:age,:sex);");
     $query->execute(['pseudo' => $pseudo, 'email' => $email, 'pass' => $password, 'age' => $age, 'sex' => $sex]);
 
+}
 
+function generateSkills($userId){
+    global $pdo;
+    $query = $pdo->prepare("insert into skills (owner,strenght, intelligence,magie,speed,charisme) values (:id,5,5,5,5,5);");
+    $query->execute(['id' => $userId]);
 }
 
 function getUserIdByToken($userToken){
@@ -31,7 +36,8 @@ function getUserIdByToken($userToken){
     global $pdo;
     $query = $pdo->prepare("select * from tokens where token = :token;");
     $query->execute(['token' => $userToken]);
-    return $query->fetch();
+    $data = $query->fetch();
+    return $data['owner'];
 
 }
 
@@ -68,10 +74,10 @@ function getRandomAccount($userId){
 
 
     global $pdo;
-    $id =     $token = uniqid('', true);
-    $query = $pdo->prepare("Insert into convs (id,winner,looser,lastmessage,lastmessagedate,notreadby,score)
- VALUES (:id,:winner,:looser,'',null,null,0);");
-    $query->execute(['id' => $id,'winner' => $winner,'looser' => $looser,]);
+    $query = $pdo->prepare("select u.id from convs c join users u on c.winner = u.id or
+ c.looser = u.id where u.id != :id and looser != :id  and winner != :id order by random() limit 1; ");
+    $query->execute(['id' => $userId]);
+    return $query->fetch();
 
 
 
@@ -79,7 +85,51 @@ function getRandomAccount($userId){
 
 function launchBattle($userId,$targetId){
 
+    $skillsUser = getSkills($userId);
+    $skillsTarget = getSkills($targetId);
 
+    $userSTR = $skillsUser['strenght'];
+    $targetSTR = $skillsTarget['strenght'];
+    $userINT = $skillsUser['strenght'];
+    $targetINT = $skillsTarget['strenght'];
+    $userMAG = $skillsUser['strenght'];
+    $targetMAG = $skillsTarget['strenght'];
+    $userSPD = $skillsUser['strenght'];
+    $targetSPD = $skillsTarget['strenght'];
+    $userCHAR = $skillsUser['strenght'];
+    $targetCHAR = $skillsTarget['strenght'];
+
+
+
+    $diff   = 5;
+    $diff += comparePoint($userSTR , $targetSTR);
+    $diff += comparePoint($userINT , $targetINT);
+    $diff += comparePoint($userMAG , $targetMAG);
+    $diff += comparePoint($userSPD , $targetSPD);
+    $diff += comparePoint($userCHAR , $targetCHAR);
+    $diff *=10;
+
+    $randNumber = rand(1,100);
+    if($randNumber<$diff){
+        createConvs($userId,$targetId);
+    }
+    elseif($randNumber>$diff){
+        createConvs($targetId,$userId);
+    }elseif ($randNumber==$diff){
+        createConvs($userId,$targetId);
+    }
+
+
+}
+
+function comparePoint($p1,$p2){
+    if($p1>$p2){
+        return 1;
+    }elseif ($p1 < $p2){
+        return  -1;
+    }else{
+        return 0;
+    }
 }
 
 function createConvs($winner,$looser){
@@ -96,7 +146,15 @@ function createConvs($winner,$looser){
 
 }
 
-function getConvs($userToken){}
+function getConvs($userToken){
+
+    $id = getUserIdByToken($userToken);
+    global $pdo;
+    $query = $pdo->prepare("select * from convs where looser = :id or winner = :id;");
+    $query->execute();
+    //  $rq-> debugDumpParams();
+    return $query->fetchAll(['id'=> $id]);
+}
 
 function updateConvs(){}
 
@@ -110,7 +168,16 @@ function getPackForUser($userId){}
 
 function openPackId($userToken,$packId){}
 
-function getSkills($userId){}
+function getSkills($userId){
+
+
+    global $pdo;
+    $query = $pdo->prepare("select * from skills where owner = :id;");
+    $query->execute(['id' => $userId]);
+    return $query->fetch();
+
+
+}
 
 function addPointToSkills($userToken,$category){}
 

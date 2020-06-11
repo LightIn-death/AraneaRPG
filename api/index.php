@@ -21,10 +21,10 @@ switch ($action) {
         $age = filter_input(INPUT_POST, "age");
         $sex = filter_input(INPUT_POST, "sex");
         register($pseudo, $email, $password, $age, $sex, "", "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png");
-        $data = login($email,$password);
+        $data = login($email, $password);
+        generateSkills($data['id']);
         deleteTokenForUser($data['id']);
         $data['token'] = generateTokenForUser($data['id']);
-
         break;
     case "login":
         $email = filter_input(INPUT_POST, "email");
@@ -34,33 +34,29 @@ switch ($action) {
         $data['token'] = generateTokenForUser($data['id']);
         break;
     case "del_account":
-
         $userToken = filter_input(INPUT_POST, "token");
         deleteAccount($userToken);
+        $data = 'ok';
+        break;
+    case "get_random_account":
+        $userId = filter_input(INPUT_POST, "id");
+        $data = getRandomAccount($userId);
+        break;
+    case "launch_battle":
+        $userId = filter_input(INPUT_POST, "user");
+        $targetId = filter_input(INPUT_POST, "target");
+        launchBattle($userId, $targetId);
         $data = 'ok';
         break;
 
 
 
-    case "get_random_account":
+
+    case "lo ":
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
         $data = userLogin($email, $password);
         break;
-
-
-
-
-
-
-
-        case "lo ":
-        $email = filter_input(INPUT_POST, "email");
-        $password = filter_input(INPUT_POST, "password");
-        $data = userLogin($email, $password);
-        break;
-
-
 
 
     case "efefefefef ":

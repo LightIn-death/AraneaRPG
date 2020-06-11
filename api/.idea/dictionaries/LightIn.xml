@@ -2,6 +2,7 @@
   <dictionary name="LightIn">
     <words>
       <w>conv</w>
+      <w>convs</w>
     </words>
   </dictionary>
 </component>
