@@ -17,7 +17,6 @@ function login($email, $password)
 
 function register($pseudo, $email, $password, $age, $sex, $desc, $image)
 {
-
     global $pdo;
     $password = password_hash($password, PASSWORD_BCRYPT);
     $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex) VALUES (:pseudo,:email,:pass,:age,:sex);");
