@@ -53,3 +53,13 @@ class User {
     );
   }
 }
+
+class Skills {}
+
+class Message {}
+
+class Object {}
+
+
+
+
