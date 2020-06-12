@@ -51,15 +51,25 @@ switch ($action) {
         $data = 'ok';
         break;
 
+        
+            case "get_convs":
+                $token = filter_input(INPUT_POST, "token");
+                $data = userLogin($email, $password);
+                break;
+        
 
 
 
-    case "lo ":
-        $email = filter_input(INPUT_POST, "email");
-        $password = filter_input(INPUT_POST, "password");
-        $data = userLogin($email, $password);
-        break;
 
+
+
+
+            case "lo ":
+                $email = filter_input(INPUT_POST, "email");
+                $password = filter_input(INPUT_POST, "password");
+                $data = userLogin($email, $password);
+                break;
+        
 
     case "efefefefef ":
         $data = getAllMessages();

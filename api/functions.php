@@ -1,8 +1,7 @@
 <?php
 require_once "connect.php";
 
-function login($email, $password)
-{
+function login($email, $password){
     global $pdo;
     $query = $pdo->prepare("SELECT * FROM public.users where email = :email");
     $query->execute(['email' => $email]);
@@ -15,8 +14,7 @@ function login($email, $password)
     }
 }
 
-function register($pseudo, $email, $password, $age, $sex, $desc, $image)
-{
+function register($pseudo, $email, $password, $age, $sex, $desc, $image){
     global $pdo;
     $password = password_hash($password, PASSWORD_BCRYPT);
     $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex) VALUES (:pseudo,:email,:pass,:age,:sex);");
@@ -155,11 +153,33 @@ function getConvs($userToken){
     return $query->fetchAll(['id'=> $id]);
 }
 
-function updateConvs(){}
+function updateConvs(){
 
-function getMessages($convId){}
+}
 
-function getUserProfile($userId){}
+function getMessages($convId){
+
+
+    $id = getUserIdByToken($userToken);
+    global $pdo;
+    $query = $pdo->prepare("    select * from messages where conv_id = :id;");
+    $query->execute();
+    //  $rq-> debugDumpParams();
+    return $query->fetchAll(['id'=> $userToken]);
+
+
+
+}
+
+function getUserProfile($userId){
+
+
+    global $pdo;
+    $query = $pdo->prepare("SELECT * FROM public.users where id = :id ;");
+    $query->execute(['id' => $userId]);
+    $data = $query->fetch();
+
+}
 
 function updateProfile($userToken){}
 
@@ -178,7 +198,42 @@ function getSkills($userId){
 
 }
 
-function addPointToSkills($userToken,$category){}
+function addPointToSkills($userToken,$category){
+    global $pdo;
+
+    $id = getUserIdByToken($userToken);
+
+
+    $query = $pdo->prepare("SELECT free FROM skills where owner = :id ;");
+    $query->execute(['id' => $id]);
+    $free  =  $query->fetch();
+    
+   if(free >0 ){ // Peut improve coter serveur
+       switch($category){
+           case "str":
+            $query = $pdo->prepare("UPDATE skills SET strenght = (select strenght  from skills where owner = :id ) + 1  where owner = :id ;");
+           break;
+
+           case "int":
+            $query = $pdo->prepare("UPDATE skills SET intelligence = (select intelligence from skills where owner = :id ) + 1  where owner = :id ;");
+           break;
+
+           case "mag":
+            $query = $pdo->prepare("UPDATE skills SET magie = (select magie from skills where owner = :id ) + 1  where owner = :id ;");
+           break;
+
+           case "spd":
+            $query = $pdo->prepare("UPDATE skills SET  speed = (select speed  from skills where owner = :id ) + 1  where owner = :id ;");
+           break;
+
+           case "char":
+            $query = $pdo->prepare("UPDATE skills SET charisme = (select charisme from skills where owner = :id ) + 1  where owner = :id ;");
+           break;
+       }
+
+       $query->execute(['id' => $id]);
+    }
+}
 
 function getStoreItems(){}
 
