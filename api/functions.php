@@ -157,12 +157,11 @@ function getMessages($convId)
 {
 
 
-    $id = getUserIdByToken($userToken);
     global $pdo;
     $query = $pdo->prepare("    select * from messages where conv_id = :id;");
     $query->execute();
     //  $rq-> debugDumpParams();
-    return $query->fetchAll(['id' => $userToken]);
+    return $query->fetchAll(['id' => $convId]);
 }
 
 function getUserProfile($userId)
@@ -206,9 +205,11 @@ function addPointToSkills($userToken, $category)
 
     $query = $pdo->prepare("SELECT free FROM skills where owner = :id ;");
     $query->execute(['id' => $id]);
-    $free  =  $query->fetch();
+    $data  =  $query->fetch();
+    $free  =  $data["free"];
+    echo $free;
 
-    if (free > 0) { // Peut improve coter serveur
+    if ($free > 0) { // Peut improve coter serveur
         switch ($category) {
             case "str":
                 $query = $pdo->prepare("UPDATE skills SET strenght = (select strenght  from skills where owner = :id ) + 1  where owner = :id ;");
@@ -231,6 +232,8 @@ function addPointToSkills($userToken, $category)
                 break;
         }
 
+        $query->execute(['id' => $id]);
+        $query = $pdo->prepare("UPDATE skills SET free = (select free from skills where owner = :id ) - 1  where owner = :id ;");
         $query->execute(['id' => $id]);
     }
 }

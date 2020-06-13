@@ -40,7 +40,11 @@ class _TabsState extends State<TabsContainer> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle), title: Text("Profile")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text("Home")),
+                icon: Icon(null),
+                title: Text(
+                  "Aranea",
+                  style: TextStyle(fontSize: 25),
+                )),
             BottomNavigationBarItem(
                 icon: Icon(Icons.sms), title: Text("Messages")),
           ],
@@ -48,8 +52,7 @@ class _TabsState extends State<TabsContainer> {
             setState(() {
               _currentIndex = index;
               _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 400),
-                  curve: Curves.linear);
+                  duration: Duration(milliseconds: 400), curve: Curves.linear);
             });
           }),
     );

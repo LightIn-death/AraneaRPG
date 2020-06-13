@@ -28,6 +28,7 @@ class _InboxState extends State<InboxPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.transparent,
         body: FutureBuilder(
             future: _getUser(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {

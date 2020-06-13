@@ -83,7 +83,36 @@ class User {
   }
 }
 
-class Skills {}
+class Skills {
+  final int owner;
+  final int strength;
+  final int intelligence;
+  final int magie;
+  final int speed;
+  final int charisme;
+  final int free;
+
+  Skills(
+      {this.owner,
+      this.strength,
+      this.intelligence,
+      this.magie,
+      this.speed,
+      this.charisme,
+      this.free});
+
+  factory Skills.fromJson(Map<String, dynamic> json) {
+    return Skills(
+      owner: json["owner"],
+      strength: json["strenght"],
+      intelligence: json["intelligence"],
+      magie: json["magie"],
+      speed: json["speed"],
+      charisme: json["charisme"],
+      free: json["free"],
+    );
+  }
+}
 
 class Message {}
 

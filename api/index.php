@@ -60,8 +60,16 @@ switch ($action) {
         break;
 
 
+    case "get_skills":
+        $id = filter_input(INPUT_POST, "id");
+        $data = getSkills($id);
+        break;
 
-
+    case "add_skill_point":
+        $userToken = filter_input(INPUT_POST, "token");
+        $categ = filter_input(INPUT_POST, "categ");
+        $data = addPointToSkills($userToken, $categ);
+        break;
 
 
 

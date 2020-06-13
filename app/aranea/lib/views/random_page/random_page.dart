@@ -1,15 +1,15 @@
+import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
-import 'package:Aranea/views/settings_page/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatefulWidget {
+class SettingsPage extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _SettingsState createState() => _SettingsState();
 }
 
-class _ProfileState extends State<ProfilePage> {
+class _SettingsState extends State<SettingsPage> {
   Future<User> getUserInfo() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var user = User.setUser(
@@ -39,17 +39,6 @@ class _ProfileState extends State<ProfilePage> {
                 return Center(
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (user.sex) Text("Ma") else Text("Fe"),
-                          Text(
-                            user.pseudo + " . " + user.age.toString(),
-                            style: TextStyle(
-                                color: kPrimaryDarkColor, fontSize: 30),
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         height: 50,
                       ),
@@ -60,15 +49,10 @@ class _ProfileState extends State<ProfilePage> {
                           GestureDetector(
                             onTap: () {
                               print("AVATAR");
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SettingsPage()));
                             },
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(user.image),
-                              radius: 60,
-                              backgroundColor: kPrimaryColor,
+                              radius: 50,
                             ),
                           ),
                           Text("Crystals : " + user.crystals.toString()),
@@ -76,6 +60,18 @@ class _ProfileState extends State<ProfilePage> {
                       ),
                       SizedBox(
                         height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (user.sex) Text("Ma") else Text("Fe"),
+                          Text(
+                            user.pseudo,
+                            style: TextStyle(
+                                color: kPrimaryDarkColor, fontSize: 30),
+                          ),
+                          Text(user.age.toString()),
+                        ],
                       ),
                       SizedBox(
                         height: 20,
@@ -91,6 +87,11 @@ class _ProfileState extends State<ProfilePage> {
                         Text(user.metadescr)
                       else
                         Text("Pas de Meta description.."),
+                      RoundedButton(
+                        text: "Deconnexion",
+                        press: () {},
+                        color: Colors.red,
+                      )
                     ],
                   ),
                 );
