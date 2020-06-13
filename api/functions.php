@@ -1,73 +1,76 @@
 <?php
 require_once "connect.php";
 
-function login($email, $password){
+function login($email, $password)
+{
     global $pdo;
     $query = $pdo->prepare("SELECT * FROM public.users where email = :email");
     $query->execute(['email' => $email]);
     $data = $query->fetch();
     if (password_verify($password, $data['password'])) {
-
         return $data;
     } else {
-        return 'fuck';
+        $data = [];
+        $data["fail"] = 'mauvais email ou mot de passe';
+        return $data;
     }
 }
 
-function register($pseudo, $email, $password, $age, $sex, $desc, $image){
+function register($pseudo, $email, $password, $age, $sex, $desc, $image)
+{
     global $pdo;
-    $password = password_hash($password, PASSWORD_BCRYPT);
-    $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex) VALUES (:pseudo,:email,:pass,:age,:sex);");
-    $query->execute(['pseudo' => $pseudo, 'email' => $email, 'pass' => $password, 'age' => $age, 'sex' => $sex]);
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $query = $pdo->prepare("Insert into users (pseudo,email,password,age,sex,image) VALUES (:pseudo,:email,:pass,:age,:sex,:image);");
+    $query->execute(['pseudo' => $pseudo, 'email' => $email, 'pass' => $password, 'age' => $age, 'sex' => $sex, "image" => $image]);
 
+    // var_dump($password);
 }
 
-function generateSkills($userId){
+function generateSkills($userId)
+{
     global $pdo;
     $query = $pdo->prepare("insert into skills (owner,strenght, intelligence,magie,speed,charisme) values (:id,5,5,5,5,5);");
     $query->execute(['id' => $userId]);
 }
 
-function getUserIdByToken($userToken){
+function getUserIdByToken($userToken)
+{
 
     global $pdo;
     $query = $pdo->prepare("select * from tokens where token = :token;");
     $query->execute(['token' => $userToken]);
     $data = $query->fetch();
     return $data['owner'];
-
 }
 
-function deleteTokenForUser($userId){
+function deleteTokenForUser($userId)
+{
 
     global $pdo;
     $query = $pdo->prepare("delete from tokens where owner = :userId;");
     $query->execute(['userId' => $userId]);
-
 }
 
-function generateTokenForUser($userId){
+function generateTokenForUser($userId)
+{
 
     global $pdo;
     $token = uniqid('', true);
     $query = $pdo->prepare("Insert into tokens (owner,token) VALUES (:userId,:token);");
     $query->execute(['userId' => $userId, 'token' => $token]);
     return $token;
-
-
 }
 
-function deleteAccount($userToken){
+function deleteAccount($userToken)
+{
 
     global $pdo;
     $query = $pdo->prepare("  delete from users using tokens where users.id = tokens.owner and tokens.token = :token ;");
     $query->execute(['token' => $userToken]);
-
-
-
 }
 
-function getRandomAccount($userId){
+function getRandomAccount($userId)
+{
 
 
     global $pdo;
@@ -75,12 +78,10 @@ function getRandomAccount($userId){
  c.looser = u.id where u.id != :id and looser != :id  and winner != :id order by random() limit 1; ");
     $query->execute(['id' => $userId]);
     return $query->fetch();
-
-
-
 }
 
-function launchBattle($userId,$targetId){
+function launchBattle($userId, $targetId)
+{
 
     $skillsUser = getSkills($userId);
     $skillsTarget = getSkills($targetId);
@@ -99,65 +100,61 @@ function launchBattle($userId,$targetId){
 
 
     $diff   = 5;
-    $diff += comparePoint($userSTR , $targetSTR);
-    $diff += comparePoint($userINT , $targetINT);
-    $diff += comparePoint($userMAG , $targetMAG);
-    $diff += comparePoint($userSPD , $targetSPD);
-    $diff += comparePoint($userCHAR , $targetCHAR);
-    $diff *=10;
+    $diff += comparePoint($userSTR, $targetSTR);
+    $diff += comparePoint($userINT, $targetINT);
+    $diff += comparePoint($userMAG, $targetMAG);
+    $diff += comparePoint($userSPD, $targetSPD);
+    $diff += comparePoint($userCHAR, $targetCHAR);
+    $diff *= 10;
 
-    $randNumber = rand(1,100);
-    if($randNumber<$diff){
-        createConvs($userId,$targetId);
+    $randNumber = rand(1, 100);
+    if ($randNumber < $diff) {
+        createConvs($userId, $targetId);
+    } elseif ($randNumber > $diff) {
+        createConvs($targetId, $userId);
+    } elseif ($randNumber == $diff) {
+        createConvs($userId, $targetId);
     }
-    elseif($randNumber>$diff){
-        createConvs($targetId,$userId);
-    }elseif ($randNumber==$diff){
-        createConvs($userId,$targetId);
-    }
-
-
 }
 
-function comparePoint($p1,$p2){
-    if($p1>$p2){
+function comparePoint($p1, $p2)
+{
+    if ($p1 > $p2) {
         return 1;
-    }elseif ($p1 < $p2){
+    } elseif ($p1 < $p2) {
         return  -1;
-    }else{
+    } else {
         return 0;
     }
 }
 
-function createConvs($winner,$looser){
+function createConvs($winner, $looser)
+{
 
     global $pdo;
     $id =     $token = uniqid('', true);
     $query = $pdo->prepare("Insert into convs (id,winner,looser,lastmessage,lastmessagedate,notreadby,score)
  VALUES (:id,:winner,:looser,'',null,null,0);");
-    $query->execute(['id' => $id,'winner' => $winner,'looser' => $looser,]);
-
-
-
-
-
+    $query->execute(['id' => $id, 'winner' => $winner, 'looser' => $looser,]);
 }
 
-function getConvs($userToken){
+function getConvs($userToken)
+{
 
     $id = getUserIdByToken($userToken);
     global $pdo;
     $query = $pdo->prepare("select * from convs where looser = :id or winner = :id;");
     $query->execute();
     //  $rq-> debugDumpParams();
-    return $query->fetchAll(['id'=> $id]);
+    return $query->fetchAll(['id' => $id]);
 }
 
-function updateConvs(){
-
+function updateConvs()
+{
 }
 
-function getMessages($convId){
+function getMessages($convId)
+{
 
 
     $id = getUserIdByToken($userToken);
@@ -165,40 +162,43 @@ function getMessages($convId){
     $query = $pdo->prepare("    select * from messages where conv_id = :id;");
     $query->execute();
     //  $rq-> debugDumpParams();
-    return $query->fetchAll(['id'=> $userToken]);
-
-
-
+    return $query->fetchAll(['id' => $userToken]);
 }
 
-function getUserProfile($userId){
+function getUserProfile($userId)
+{
 
 
     global $pdo;
     $query = $pdo->prepare("SELECT * FROM public.users where id = :id ;");
     $query->execute(['id' => $userId]);
     $data = $query->fetch();
-
 }
 
-function updateProfile($userToken){}
+function updateProfile($userToken)
+{
+}
 
-function getPackForUser($userId){}
+function getPackForUser($userId)
+{
+}
 
-function openPackId($userToken,$packId){}
+function openPackId($userToken, $packId)
+{
+}
 
-function getSkills($userId){
+function getSkills($userId)
+{
 
 
     global $pdo;
     $query = $pdo->prepare("select * from skills where owner = :id;");
     $query->execute(['id' => $userId]);
     return $query->fetch();
-
-
 }
 
-function addPointToSkills($userToken,$category){
+function addPointToSkills($userToken, $category)
+{
     global $pdo;
 
     $id = getUserIdByToken($userToken);
@@ -207,37 +207,41 @@ function addPointToSkills($userToken,$category){
     $query = $pdo->prepare("SELECT free FROM skills where owner = :id ;");
     $query->execute(['id' => $id]);
     $free  =  $query->fetch();
-    
-   if(free >0 ){ // Peut improve coter serveur
-       switch($category){
-           case "str":
-            $query = $pdo->prepare("UPDATE skills SET strenght = (select strenght  from skills where owner = :id ) + 1  where owner = :id ;");
-           break;
 
-           case "int":
-            $query = $pdo->prepare("UPDATE skills SET intelligence = (select intelligence from skills where owner = :id ) + 1  where owner = :id ;");
-           break;
+    if (free > 0) { // Peut improve coter serveur
+        switch ($category) {
+            case "str":
+                $query = $pdo->prepare("UPDATE skills SET strenght = (select strenght  from skills where owner = :id ) + 1  where owner = :id ;");
+                break;
 
-           case "mag":
-            $query = $pdo->prepare("UPDATE skills SET magie = (select magie from skills where owner = :id ) + 1  where owner = :id ;");
-           break;
+            case "int":
+                $query = $pdo->prepare("UPDATE skills SET intelligence = (select intelligence from skills where owner = :id ) + 1  where owner = :id ;");
+                break;
 
-           case "spd":
-            $query = $pdo->prepare("UPDATE skills SET  speed = (select speed  from skills where owner = :id ) + 1  where owner = :id ;");
-           break;
+            case "mag":
+                $query = $pdo->prepare("UPDATE skills SET magie = (select magie from skills where owner = :id ) + 1  where owner = :id ;");
+                break;
 
-           case "char":
-            $query = $pdo->prepare("UPDATE skills SET charisme = (select charisme from skills where owner = :id ) + 1  where owner = :id ;");
-           break;
-       }
+            case "spd":
+                $query = $pdo->prepare("UPDATE skills SET  speed = (select speed  from skills where owner = :id ) + 1  where owner = :id ;");
+                break;
 
-       $query->execute(['id' => $id]);
+            case "char":
+                $query = $pdo->prepare("UPDATE skills SET charisme = (select charisme from skills where owner = :id ) + 1  where owner = :id ;");
+                break;
+        }
+
+        $query->execute(['id' => $id]);
     }
 }
 
-function getStoreItems(){}
+function getStoreItems()
+{
+}
 
-function buyItem($itemId){}
+function buyItem($itemId)
+{
+}
 
 
 
@@ -291,7 +295,7 @@ function getAllUsers()
     global $pdo;
     $query = $pdo->prepare("SELECT * FROM `users` ");
     $query->execute();
-//    $rq-> debugDumpParams();
+    //    $rq-> debugDumpParams();
     $data = $query->fetchAll();
     return $data;
 }
@@ -302,7 +306,7 @@ function getAllMessages()
     global $pdo;
     $query = $pdo->prepare("SELECT * FROM `messages` ");
     $query->execute();
-//    $rq-> debugDumpParams();
+    //    $rq-> debugDumpParams();
     $data = $query->fetchAll();
     return $data;
 }
@@ -316,7 +320,6 @@ function userLogin($email, $password)
     $row = $query->fetchAll();
 
     if (empty($row)) {
-
     }
     foreach ($row as $r) {
         if ($r["email"] == $email and $r["password"] == $password) {
@@ -364,7 +367,6 @@ function clotureEtude($id)
     global $pdo;
     $query = $pdo->prepare("    UPDATE `etudes` SET `dateFin` = :date WHERE `etudes`.`id_etudes` = :id ");
     $query->execute(['date' => $date, 'id' => $id]);
-
 }
 
 
@@ -529,7 +531,6 @@ function getOpenEtudes()
     $rq->execute();
     $data = $rq->fetchAll();
     return $data;
-
 }
 
 
@@ -540,7 +541,6 @@ function getZones($id)
     $rq->execute(["id" => $id]);
     $data = $rq->fetchAll();
     return $data;
-
 }
 
 
@@ -551,7 +551,6 @@ function getZonedetails($id)
     $rq->execute(["id" => $id]);
     $data = $rq->fetch();
     return $data;
-
 }
 
 
@@ -598,7 +597,6 @@ function createNewZone($id_plage, $nombrePersonne)
     $rq->execute();
     $data = $rq->fetch();
     return intval($data["id_zones"]);
-
 }
 
 
@@ -625,7 +623,6 @@ function getTotalWorms($plageId)
     $rq->execute(['id' => $plageId]);
     $data = $rq->fetch();
     return intval($data["SUM(nombre)"]);
-
 }
 
 
@@ -682,7 +679,6 @@ function getGlobalDensite($etudeId)
     }
     $totalDens = $WormsZone / $recheZone;
     return $totalDens;
-
 }
 
 function getGlobalEstim($etudeId)
@@ -757,15 +753,13 @@ function getStatEspPlage($id_plages)
     $query = $pdo->prepare("SELECT nom, SUM(nombre) FROM zones join instanceespeces on FK_zone=id_zones join especes on id_especes=FK_id_especes WHERE FK_instance_plages= :id GROUP by id_especes");
     $query->execute(['id' => $id_plages]);
     $WormsZone = $query->fetchAll();
-//    return $WormsZone;
+    //    return $WormsZone;
     if (empty($WormsZone)) {
 
         $data[0]["nom"] = "Donnee Corompu ou imcoplete";
         $data[0]["nombre"] = "\"Donnee Corompu ou imcoplete\"";
         $data[0]["dens"] = "\"Donnee Corompu ou imcoplete\"";
         $data[0]["est"] = "\"Donnee Corompu ou imcoplete\"";
-
-
     } else {
 
 
@@ -785,7 +779,6 @@ function getStatEspPlage($id_plages)
             $data[$i]["est"] = (intval($wr["SUM(nombre)"]) / $recheZone) * getPlageSurface($id_plages);
             $i++;
         }
-
     }
     return $data;
 }
@@ -804,9 +797,9 @@ function getStatPerEspeceGlob($etudeId)
     $rq = $pdo->prepare("SELECT nom, SUM(nombre),id_especes, FK_id_especes,FK_zone,id_zones,FK_instance_plages,id_instancePlages,FK_id_etudes FROM `instanceespeces` join zones on FK_zone = id_zones join instanceplages on FK_instance_plages= id_instancePlages join especes on FK_id_especes=id_especes WHERE FK_id_etudes = :id GROUP BY id_especes");
     $rq->execute(['id' => $etudeId]);
     $row = $rq->fetchAll();
-//    return $row;
+    //    return $row;
 
-// Calculer
+    // Calculer
     // SURFRECHERCHE
 
     $recheZone = 1;
@@ -823,7 +816,7 @@ function getStatPerEspeceGlob($etudeId)
     }
 
 
-//
+    //
     $i = 0;
     foreach ($row as $ro) {
         $data[$i]["nom"] = $ro["nom"];
@@ -837,24 +830,4 @@ function getStatPerEspeceGlob($etudeId)
 
     // Return : Espece + Nombre + Densité + estimé
     return $data;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

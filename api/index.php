@@ -29,12 +29,14 @@ switch ($action) {
     case "login":
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
+
         $data = login($email, $password);
-      //  var_dump($data);
-        if($data != 'fuck'){
-        deleteTokenForUser($data['id']);
-        $data['token'] = generateTokenForUser($data['id']);
-    } break;
+        //var_dump($data);
+        if (!array_key_exists("fail", $data)) {
+            deleteTokenForUser($data['id']);
+            $data['token'] = generateTokenForUser($data['id']);
+        }
+        break;
     case "del_account":
         $userToken = filter_input(INPUT_POST, "token");
         deleteAccount($userToken);
@@ -51,12 +53,11 @@ switch ($action) {
         $data = 'ok';
         break;
 
-        
-            case "get_convs":
-                $token = filter_input(INPUT_POST, "token");
-                $data = userLogin($email, $password);
-                break;
-        
+
+    case "get_convs":
+        $token = filter_input(INPUT_POST, "token");
+        $data = userLogin($email, $password);
+        break;
 
 
 
@@ -64,12 +65,13 @@ switch ($action) {
 
 
 
-            case "lo ":
-                $email = filter_input(INPUT_POST, "email");
-                $password = filter_input(INPUT_POST, "password");
-                $data = userLogin($email, $password);
-                break;
-        
+
+    case "lo ":
+        $email = filter_input(INPUT_POST, "email");
+        $password = filter_input(INPUT_POST, "password");
+        $data = userLogin($email, $password);
+        break;
+
 
     case "efefefefef ":
         $data = getAllMessages();

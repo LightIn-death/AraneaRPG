@@ -13,6 +13,7 @@ class RoundedTextInput extends StatelessWidget {
   final bool password;
   final ValueChanged<String> onChanged;
 
+
   const RoundedTextInput({
     Key key,
     this.color = kPrimaryLightColor,

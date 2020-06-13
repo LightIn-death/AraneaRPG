@@ -52,6 +52,35 @@ class User {
       token: json["token"],
     );
   }
+
+  factory User.setUser(
+    int id,
+    String token,
+    String pseudo,
+    String email,
+    int age,
+    bool sex,
+    String image,
+    int coins,
+    int crystals,
+    String description,
+    String metadescr,
+  ) {
+    return User(
+      id: id,
+      pseudo: pseudo,
+      email: email,
+      age: age,
+      sex: sex,
+      description: description,
+      image: image,
+      password: null,
+      coins: coins,
+      crystals: crystals,
+      metadescr: metadescr,
+      token: token,
+    );
+  }
 }
 
 class Skills {}
@@ -59,7 +88,3 @@ class Skills {}
 class Message {}
 
 class Object {}
-
-
-
-

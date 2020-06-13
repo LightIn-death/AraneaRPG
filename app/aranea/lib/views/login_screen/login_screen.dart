@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
   Future<User> loginUser(String email, String password) async {
@@ -20,13 +21,36 @@ class LoginScreen extends StatelessWidget {
       "password": password,
     });
     var jsonData = json.decode(data.body);
-    if (jsonData["fuck"]) {
+    if (jsonData is String) {
       return null;
     }
     User user = User.fromJson(jsonData);
     print("Conecter :  " + user.pseudo);
     return user;
   }
+
+
+  void saveUserInfo(User user) async{
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("Id", user.id);
+    prefs.setString("Token", user.token);
+    prefs.setString("Pseudo", user.pseudo);
+    prefs.setString("Email", user.email);
+    prefs.setInt("Age", user.age);
+    prefs.setBool("Sex", user.sex);
+    prefs.setString("Image", user.image);
+    prefs.setInt("Coins", user.coins);
+    prefs.setInt("Crystals", user.crystals);
+    prefs.setString("Description", user.description);
+    prefs.setString("Metadescr", user.metadescr);
+
+
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +98,7 @@ class LoginScreen extends StatelessWidget {
 
                   print("JE suis connecter avec : " + resp.pseudo);
 
+                  saveUserInfo(resp);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
