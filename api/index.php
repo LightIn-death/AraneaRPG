@@ -49,8 +49,8 @@ switch ($action) {
     case "launch_battle":
         $userId = filter_input(INPUT_POST, "user");
         $targetId = filter_input(INPUT_POST, "target");
-        launchBattle($userId, $targetId);
-        $data = 'ok';
+        $data = launchBattle($userId, $targetId);
+        
         break;
 
 

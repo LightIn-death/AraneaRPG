@@ -110,11 +110,15 @@ function launchBattle($userId, $targetId)
     $randNumber = rand(1, 100);
     if ($randNumber < $diff) {
         createConvs($userId, $targetId);
+        return $userId;
     } elseif ($randNumber > $diff) {
         createConvs($targetId, $userId);
+        return $targetId;
     } elseif ($randNumber == $diff) {
         createConvs($userId, $targetId);
+        return $userId;
     }
+    return "Fail";
 }
 
 function comparePoint($p1, $p2)
