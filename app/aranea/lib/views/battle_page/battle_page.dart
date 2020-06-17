@@ -30,7 +30,7 @@ class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondaryLightColor,
+        backgroundColor: Colors.transparent,
         body: FutureBuilder(
             future: getUserInfo(),
             builder: (context, snapshot) {

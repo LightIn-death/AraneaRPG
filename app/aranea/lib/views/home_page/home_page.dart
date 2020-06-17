@@ -4,8 +4,9 @@ import 'dart:ui';
 import 'package:Aranea/components/skillsDetails.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
+import 'package:Aranea/views/random_page/random_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +27,12 @@ class HomePage extends StatelessWidget {
                     width: 100.0,
                     child: FittedBox(
                       child: FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RandomPage()));
+                        },
                         child: Image.asset("assets/icons/Aranea_t.png"),
                         backgroundColor: kPrimaryColor,
                       ),

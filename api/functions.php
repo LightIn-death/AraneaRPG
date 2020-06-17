@@ -74,8 +74,8 @@ function getRandomAccount($userId)
 
 
     global $pdo;
-    $query = $pdo->prepare("select u.id from convs c join users u on c.winner = u.id or
- c.looser = u.id where u.id != :id and looser != :id  and winner != :id order by random() limit 1; ");
+    $query = $pdo->prepare("select u.id from convs c Full join users u on c.winner = u.id or
+ c.looser = u.id where u.id != :id  and c.looser is null  and c.winner is null order by random() limit 1; ");
     $query->execute(['id' => $userId]);
     return $query->fetch();
 }
@@ -110,15 +110,19 @@ function launchBattle($userId, $targetId)
     $randNumber = rand(1, 100);
     if ($randNumber < $diff) {
         createConvs($userId, $targetId);
-        return $userId;
+        $data["winner"]  = $userId;
+        return $data;
     } elseif ($randNumber > $diff) {
         createConvs($targetId, $userId);
-        return $targetId;
+        $data["winner"]  = $targetId;
+        return $data;
     } elseif ($randNumber == $diff) {
         createConvs($userId, $targetId);
-        return $userId;
+        $data["winner"]  = $userId;
+        return $data;
     }
-    return "Fail";
+    $data["fail"]  = "fail";
+    return $data;
 }
 
 function comparePoint($p1, $p2)
@@ -148,9 +152,9 @@ function getConvs($userToken)
     $id = getUserIdByToken($userToken);
     global $pdo;
     $query = $pdo->prepare("select * from convs where looser = :id or winner = :id;");
-    $query->execute();
+    $query->execute(['id' => $id]);
     //  $rq-> debugDumpParams();
-    return $query->fetchAll(['id' => $id]);
+    return $query->fetchAll();
 }
 
 function updateConvs()
@@ -160,22 +164,31 @@ function updateConvs()
 function getMessages($convId)
 {
 
-
     global $pdo;
-    $query = $pdo->prepare("    select * from messages where conv_id = :id;");
-    $query->execute();
+    $query = $pdo->prepare("select * from messages where conv_id = :id Order by date desc;");
+    $query->execute(['id' => $convId]);
     //  $rq-> debugDumpParams();
-    return $query->fetchAll(['id' => $convId]);
+    return $query->fetchAll();
+}
+
+
+function sendMessage($convId, $content, $owner)
+{
+    global $pdo;
+
+    $id = uniqid('', true);
+    $query = $pdo->prepare("Insert INTO messages (id,conv_id,content,owner,date) VALUES (:id,:conv,:content,:owner,current_timestamp);");
+    $query->execute(['id' => $id, 'conv' => $convId, 'content' => $content, 'owner' => $owner]);
+    //  $rq-> debugDumpParams();
 }
 
 function getUserProfile($userId)
 {
-
-
     global $pdo;
     $query = $pdo->prepare("SELECT * FROM public.users where id = :id ;");
     $query->execute(['id' => $userId]);
     $data = $query->fetch();
+    return $data;
 }
 
 function updateProfile($userToken)

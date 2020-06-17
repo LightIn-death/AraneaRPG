@@ -44,19 +44,18 @@ switch ($action) {
         break;
     case "get_random_account":
         $userId = filter_input(INPUT_POST, "id");
-        $data = getRandomAccount($userId);
+        $targetId = getRandomAccount($userId);
+        $data =  getUserProfile($targetId["id"]);
         break;
     case "launch_battle":
         $userId = filter_input(INPUT_POST, "user");
         $targetId = filter_input(INPUT_POST, "target");
         $data = launchBattle($userId, $targetId);
-        
         break;
-
 
     case "get_convs":
         $token = filter_input(INPUT_POST, "token");
-        $data = userLogin($email, $password);
+        $data = getConvs($token);
         break;
 
 
@@ -72,6 +71,22 @@ switch ($action) {
         break;
 
 
+    case "get_profile":
+        $id = filter_input(INPUT_POST, "id");
+        $data = getUserProfile($id);
+        break;
+
+    case "send_message":
+        $convId = filter_input(INPUT_POST, "convId");
+        $content = filter_input(INPUT_POST, "content");
+        $owner = filter_input(INPUT_POST, "owner");
+        sendMessage($convId, $content, $owner);
+        $data = "ok";
+        break;
+    case "get_messages":
+        $convId = filter_input(INPUT_POST, "convId");
+        $data = getMessages($convId);
+        break;
 
 
     case "lo ":

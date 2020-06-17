@@ -5,8 +5,12 @@
       <w>categorie</w>
       <w>charisme</w>
       <w>conv</w>
+      <w>convs</w>
+      <w>lastmessage</w>
+      <w>lastmessagedate</w>
       <w>magie</w>
       <w>metadescr</w>
+      <w>notreadby</w>
     </words>
   </dictionary>
 </component>

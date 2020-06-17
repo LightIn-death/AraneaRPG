@@ -1,11 +1,33 @@
 class Conv {
-  final int index;
-  final String about;
-  final String name;
-  final String email;
-  final String picture;
+  final String id;
+  final int winner;
+  final int looser;
+  final int notreadby;
+  final String lastmessage;
+  final DateTime lastmessagedate;
+  final int score;
 
-  Conv(this.index, this.about, this.name, this.email, this.picture);
+  Conv({
+    this.id,
+    this.winner,
+    this.looser,
+    this.notreadby,
+    this.lastmessage,
+    this.lastmessagedate,
+    this.score,
+  });
+
+  factory Conv.fromJson(Map<String, dynamic> json) {
+    return Conv(
+      id: json["id"],
+      winner: json["winner"],
+      looser: json["looser"],
+      notreadby: json["notreadby"],
+      lastmessage: json["lastmessage"],
+      lastmessagedate: json["lastmessagedate"],
+      score: json["score"],
+    );
+  }
 }
 
 class User {
@@ -114,6 +136,33 @@ class Skills {
   }
 }
 
-class Message {}
+class Message {
+  final String id;
+  final String convId;
+  final String content;
+  final int owner;
+  final String date;
+  final String image;
+
+  Message({
+    this.id,
+    this.convId,
+    this.content,
+    this.owner,
+    this.date,
+    this.image,
+  });
+
+  factory Message.fromJson(Map<String, dynamic> json) {
+    return Message(
+      id: json["id"],
+      convId: json["conv_id"],
+      content: json["content"],
+      owner: json["owner"],
+      date: json["date"],
+      image: json["image"],
+    );
+  }
+}
 
 class Object {}

@@ -1,65 +1,88 @@
+import 'dart:convert';
+
 import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class SettingsPage extends StatefulWidget {
+class RandomPage extends StatefulWidget {
   @override
-  _SettingsState createState() => _SettingsState();
+  _RandomState createState() => _RandomState();
 }
 
-class _SettingsState extends State<SettingsPage> {
-  Future<User> getUserInfo() async {
+class _RandomState extends State<RandomPage> {
+  Future<User> getRandomProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user = User.setUser(
-        prefs.getInt("Id"),
-        prefs.getString("Token"),
-        prefs.getString("Pseudo"),
-        prefs.getString("Email"),
-        prefs.getInt("Age"),
-        prefs.getBool("Sex"),
-        prefs.getString("Image"),
-        prefs.getInt("Coins"),
-        prefs.getInt("Crystals"),
-        prefs.getString("Description"),
-        prefs.getString("Metadescr"));
+    var userId = prefs.getInt("Id");
+
+    var data = await http
+        .post(kApiUrl, headers: <String, String>{}, body: <String, String>{
+      "action": "get_random_account",
+      "id": userId.toString(),
+    });
+    var jsonData = json.decode(data.body);
+    if (jsonData is String) {
+      return null;
+    }
+    User user = User.fromJson(jsonData);
+    print("Random  :  " + user.pseudo);
     return user;
+  }
+
+  Future<User> getRandomSkills($id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.getInt("Id");
+
+    var data = await http
+        .post(kApiUrl, headers: <String, String>{}, body: <String, String>{
+      "action": "get_random_account",
+      "id": userId.toString(),
+    });
+    var jsonData = json.decode(data.body);
+    if (jsonData is String) {
+      return null;
+    }
+    User user = User.fromJson(jsonData);
+    print("Random  :  " + user.pseudo);
+    return user;
+  }
+
+  Future<User> launchBattle(int targetId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.getInt("Id");
+
+    var data = await http
+        .post(kApiUrl, headers: <String, String>{}, body: <String, String>{
+      "action": "launch_battle",
+      "user": userId.toString(),
+      "target": targetId.toString(),
+    });
+    var jsonData = json.decode(data.body);
+    if (jsonData["fail"] is String) {
+      return null;
+    }
+    var winner = jsonData["winner"];
+    print("Gagnant  :  " + winner);
+    return winner;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue,
         body: FutureBuilder(
-            future: getUserInfo(),
+            future: getRandomProfile(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 User user = snapshot.data;
                 return Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text("Coins : " + user.coins.toString()),
-                          GestureDetector(
-                            onTap: () {
-                              print("AVATAR");
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(user.image),
-                              radius: 50,
-                            ),
-                          ),
-                          Text("Crystals : " + user.crystals.toString()),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -73,30 +96,57 @@ class _SettingsState extends State<SettingsPage> {
                           Text(user.age.toString()),
                         ],
                       ),
-                      SizedBox(
-                        height: 20,
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(user.image),
+                        radius: 50,
                       ),
-                      if (user.description != null)
-                        Text(user.description)
-                      else
-                        Text("Pas de description.."),
                       SizedBox(
-                        height: 50,
+                        height: 25,
                       ),
-                      if (user.metadescr != null)
-                        Text(user.metadescr)
-                      else
-                        Text("Pas de Meta description.."),
-                      RoundedButton(
-                        text: "Deconnexion",
-                        press: () {},
-                        color: Colors.red,
+                      Center(
+                        child: Container(
+                          height: 100.0,
+                          width: 100.0,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                              onPressed: () async {
+                                print(user.id);
+                                Navigator.pop(context);
+                                var winner = await launchBattle(user.id);
+
+
+                                print("After");
+                              },
+                              child: Image.asset("assets/icons/Aranea_t.png"),
+                              backgroundColor: kPrimaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
                       )
                     ],
                   ),
                 );
               }
-              return Text("Wait");
+              return Center(
+                  //Si Il y a plus de nouveau profile
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("No new profile Available"),
+                  SizedBox(
+                    height: 150,
+                  ),
+                  RoundedButton(
+                    text: "Go back",
+                    press: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ));
             }));
   }
 }
