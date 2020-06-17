@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Aranea',
       theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
-      ),
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: kSecondaryLightColor,
+          fontFamily: "Montserrat"),
       home: WelcomeScreen(),
     );
   }

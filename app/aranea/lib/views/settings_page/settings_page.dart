@@ -2,7 +2,10 @@ import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:async/async.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -30,69 +33,72 @@ class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondaryLightColor,
+        backgroundColor: Colors.white70,
         body: FutureBuilder(
             future: getUserInfo(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 User user = snapshot.data;
                 return Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text("Coins : " + user.coins.toString()),
-                          GestureDetector(
-                            onTap: () {
-                              print("AVATAR");
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(user.image),
-                              radius: 50,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            var image = await ImagePicker()
+                                .getImage(source: ImageSource.gallery);
+                            if (image != null) {}
+                            var stream = new http.ByteStream(
+                                DelegatingStream.typed(image.openRead()));
+//                          var length = await image.
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(user.image),
+                            radius: 50,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            if (user.sex) Text("Ma") else Text("Fe"),
+                            Text(
+                              user.pseudo,
+                              style: TextStyle(
+                                  color: kPrimaryDarkColor, fontSize: 30),
                             ),
-                          ),
-                          Text("Crystals : " + user.crystals.toString()),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (user.sex) Text("Ma") else Text("Fe"),
-                          Text(
-                            user.pseudo,
-                            style: TextStyle(
-                                color: kPrimaryDarkColor, fontSize: 30),
-                          ),
-                          Text(user.age.toString()),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      if (user.description != null)
-                        Text(user.description)
-                      else
-                        Text("Pas de description.."),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      if (user.metadescr != null)
-                        Text(user.metadescr)
-                      else
-                        Text("Pas de Meta description.."),
-                      RoundedButton(
-                        text: "Deconnexion",
-                        press: () {},
-                        color: Colors.red,
-                      )
-                    ],
+                            Text(user.age.toString()),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        if (user.description != null)
+                          Text(user.description)
+                        else
+                          Text("Pas de description.."),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        if (user.metadescr != null)
+                          Text(user.metadescr)
+                        else
+                          Text("Pas de Meta description.."),
+                        SizedBox(
+                          height: 450,
+                        ),
+                        RoundedButton(
+                          text: "Deconnexion",
+                          press: () {},
+                          color: Colors.red,
+                        )
+                      ],
+                    ),
                   ),
                 );
               }

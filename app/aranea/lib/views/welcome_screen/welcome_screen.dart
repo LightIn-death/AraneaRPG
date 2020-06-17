@@ -14,8 +14,8 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeState extends State<WelcomeScreen> {
   void autoLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final AlreadyAuth = prefs.getInt("Id");
-    if (AlreadyAuth != null) {
+    final alreadyAuth = prefs.getInt("Id");
+    if (alreadyAuth != null) {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

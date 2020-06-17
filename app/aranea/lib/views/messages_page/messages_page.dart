@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/components/rounded_text_input.dart';
@@ -31,8 +33,12 @@ class _MessageState extends State<MessagePage> {
 //  yield await getMessages(convId);
 //  }
 
-  Stream<List<Message>> messageFlow(String convId) {
-    return Stream.fromFuture(getMessages(convId));
+  Stream<List<Message>> messageFlow(String convId) async* {
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 200));
+      yield await getMessages(convId);
+//      Stream.fromFuture(getMessages(convId));
+    }
   }
 
   Future<List<Message>> getMessages(String convId) async {
@@ -111,10 +117,10 @@ class _MessageState extends State<MessagePage> {
         borderRadius: BorderRadius.circular(3),
       ),
       margin: isMe
-          ? EdgeInsets.only(top: 8.0, bottom: 8.0, left: 80.0)
-          : EdgeInsets.only(top: 8.0, bottom: 8.0, right: 80.0),
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-      child: Text(message.content),
+          ? EdgeInsets.only(top: 4.0, bottom: 4.0, left: 90.0)
+          : EdgeInsets.only(top: 4.0, bottom: 4.0, right: 90.0),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      child: Text(message.content,style: TextStyle(fontSize: 20),),
     );
   }
 
