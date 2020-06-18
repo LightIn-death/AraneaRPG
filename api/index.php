@@ -26,6 +26,7 @@ switch ($action) {
         deleteTokenForUser($data['id']);
         $data['token'] = generateTokenForUser($data['id']);
         break;
+
     case "login":
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
@@ -37,16 +38,19 @@ switch ($action) {
             $data['token'] = generateTokenForUser($data['id']);
         }
         break;
+
     case "del_account":
         $userToken = filter_input(INPUT_POST, "token");
         deleteAccount($userToken);
         $data = 'ok';
         break;
+
     case "get_random_account":
         $userId = filter_input(INPUT_POST, "id");
         $targetId = getRandomAccount($userId);
-        $data =  getUserProfile($targetId["id"]);
+        $data = getUserProfile($targetId["id"]);
         break;
+
     case "launch_battle":
         $userId = filter_input(INPUT_POST, "user");
         $targetId = filter_input(INPUT_POST, "target");
@@ -58,7 +62,6 @@ switch ($action) {
         $data = getConvs($token);
         break;
 
-
     case "get_skills":
         $id = filter_input(INPUT_POST, "id");
         $data = getSkills($id);
@@ -67,9 +70,9 @@ switch ($action) {
     case "add_skill_point":
         $userToken = filter_input(INPUT_POST, "token");
         $categ = filter_input(INPUT_POST, "categ");
-        $data = addPointToSkills($userToken, $categ);
+        addPointToSkills($userToken, $categ);
+        $data = "ok";
         break;
-
 
     case "get_profile":
         $id = filter_input(INPUT_POST, "id");
@@ -83,24 +86,36 @@ switch ($action) {
         sendMessage($convId, $content, $owner);
         $data = "ok";
         break;
+
     case "get_messages":
         $convId = filter_input(INPUT_POST, "convId");
         $data = getMessages($convId);
         break;
 
+    case "upload_profile_pic":
 
-    case "lo ":
+        $image = $_FILES["image"];
+        $userToken = filter_input(INPUT_POST, "token");
+        $data = uploadProfilePicture($userToken, $image);
+        break;
+
+    case "update_profile":
+        $userToken = filter_input(INPUT_POST, "token");
+        $pseudo = filter_input(INPUT_POST, "pseudo");
+        $age = filter_input(INPUT_POST, "age");
+        $descr = filter_input(INPUT_POST, "descr");
+        updateProfile($userToken, $pseudo, $age, $descr);
+        $data = "ok";
+        break;
+
+
+    case "lo  ":
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
         $data = userLogin($email, $password);
         break;
 
-
-    case "efefefefef ":
-        $data = getAllMessages();
-        break;
-
-    case "":
+    case "3":
         $data = "fuck";
         break;
 }
