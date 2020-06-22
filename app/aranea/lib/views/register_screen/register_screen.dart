@@ -16,8 +16,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterState extends State<RegisterScreen> {
-
-
   var _remailInput = new TextEditingController();
   var _rpasswordInput = new TextEditingController();
   var _usernameInput = new TextEditingController();
@@ -109,25 +107,26 @@ class _RegisterState extends State<RegisterScreen> {
                   onStepTapped: goToStep,
                   steps: [
                     Step(
-                        isActive: true,
-                        title: Text("Authentication Information"),
-                        state: StepState.indexed,
-                        content: Column(
-                          children: [
-                            RoundedTextInput(
-                              textHint: "Your Email",
-                              icon: Icons.person,
-                              onChanged: (value) {},
-                              controller: _remailInput,
-                            ),
-                            RoundedTextInput(
-                              textHint: "Your Password",
-                              icon: Icons.vpn_key,
-                              password: true,
-                              controller: _rpasswordInput,
-                            ),
-                          ],
-                        )),
+                      isActive: true,
+                      title: Text("Authentication Information"),
+                      state: StepState.indexed,
+                      content: Column(
+                        children: [
+                          RoundedTextInput(
+                            textHint: "Your Email",
+                            icon: Icons.person,
+                            onChanged: (value) {},
+                            controller: _remailInput,
+                          ),
+                          RoundedTextInput(
+                            textHint: "Your Password",
+                            icon: Icons.vpn_key,
+                            password: true,
+                            controller: _rpasswordInput,
+                          ),
+                        ],
+                      ),
+                    ),
                     Step(
                         state: StepState.editing,
                         isActive: true,
@@ -174,42 +173,43 @@ class _RegisterState extends State<RegisterScreen> {
                           ],
                         )),
                     Step(
-                        state: StepState.complete,
-                        isActive: true,
-                        title: Text("Validation"),
-                        content: Column(
-                          children: [
-                            RoundedButton(
-                              text: "REGISTER",
-                              press: () async {
-                                var _sex =
-                                    dropdownValue == "m" ? "true" : "false";
+                      state: StepState.complete,
+                      isActive: true,
+                      title: Text("Validation"),
+                      content: Column(
+                        children: [
+                          RoundedButton(
+                            text: "REGISTER",
+                            press: () async {
+                              var _sex =
+                                  dropdownValue == "m" ? "true" : "false";
 
-                                var newUser = await registerUser(
-                                    _usernameInput.text,
-                                    _remailInput.text,
-                                    _rpasswordInput.text,
-                                    _ageInput.text,
-                                    _sex);
-                                if (newUser is String) {
-                                  return null;
-                                }
+                              var newUser = await registerUser(
+                                  _usernameInput.text,
+                                  _remailInput.text,
+                                  _rpasswordInput.text,
+                                  _ageInput.text,
+                                  _sex);
+                              if (newUser is String) {
+                                return null;
+                              }
 
-                                saveUserInfo(newUser);
+                              saveUserInfo(newUser);
 
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => TabsContainer(),
-                                  ),
-                                  (Route<dynamic> route) => false,
-                                );
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TabsContainer(),
+                                ),
+                                (Route<dynamic> route) => false,
+                              );
 
-                                // _registerUser(, email, password, age, sex)
-                              },
-                            )
-                          ],
-                        )),
+                              // _registerUser(, email, password, age, sex)
+                            },
+                          )
+                        ],
+                      ),
+                    ),
                   ]),
             ),
           ],

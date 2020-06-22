@@ -71,68 +71,67 @@ class _RandomState extends State<RandomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue,
-        body: FutureBuilder(
-            future: getRandomProfile(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                User user = snapshot.data;
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (user.sex) Text("Ma") else Text("Fe"),
-                          Text(
-                            user.pseudo,
-                            style: TextStyle(
-                                color: kPrimaryDarkColor, fontSize: 30),
-                          ),
-                          Text(user.age.toString()),
-                        ],
-                      ),
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(user.image),
-                        radius: 50,
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Center(
-                        child: Container(
-                          height: 100.0,
-                          width: 100.0,
-                          child: FittedBox(
-                            child: FloatingActionButton(
-                              onPressed: () async {
-                                print(user.id);
-                                Navigator.pop(context);
-                                var winner = await launchBattle(user.id);
+      backgroundColor: Colors.blue,
+      body: FutureBuilder(
+          future: getRandomProfile(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              User user = snapshot.data;
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        if (user.sex) Text("Ma") else Text("Fe"),
+                        Text(
+                          user.pseudo,
+                          style:
+                              TextStyle(color: kPrimaryDarkColor, fontSize: 30),
+                        ),
+                        Text(user.age.toString()),
+                      ],
+                    ),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(user.image),
+                      radius: 50,
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Center(
+                      child: Container(
+                        height: 100.0,
+                        width: 100.0,
+                        child: FittedBox(
+                          child: FloatingActionButton(
+                            onPressed: () async {
+                              print(user.id);
+                              Navigator.pop(context);
+                              var winner = await launchBattle(user.id);
 
-
-                                print("After");
-                              },
-                              child: Image.asset("assets/icons/Aranea_t.png"),
-                              backgroundColor: kPrimaryColor,
-                            ),
+                              print("After");
+                            },
+                            child: Image.asset("assets/icons/Aranea_t.png"),
+                            backgroundColor: kPrimaryColor,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  ),
-                );
-              }
-              return Center(
-                  //Si Il y a plus de nouveau profile
-                  child: Column(
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              );
+            }
+            return Center(
+              //Si Il y a plus de nouveau profile
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("No new profile Available"),
@@ -146,7 +145,9 @@ class _RandomState extends State<RandomPage> {
                     },
                   )
                 ],
-              ));
-            }));
+              ),
+            );
+          }),
+    );
   }
 }

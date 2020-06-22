@@ -6,32 +6,7 @@ import 'package:Aranea/views/tabs/tabs_container.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  @override
-  _WelcomeState createState() => _WelcomeState();
-}
-
-class _WelcomeState extends State<WelcomeScreen> {
-  void autoLogin() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final alreadyAuth = prefs.getInt("Id");
-    if (alreadyAuth != null) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TabsContainer(),
-        ),
-        (Route<dynamic> route) => false,
-      );
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    autoLogin();
-  }
-
+class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

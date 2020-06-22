@@ -77,18 +77,18 @@ class _MessageState extends State<MessagePage> {
   _buildMessageComposer(Conv conv) {
     var _messageInput = new TextEditingController();
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        height: 70.0,
-        color: kPrimaryLightColor,
-        child: Row(
-          children: [
-            IconButton(
-                icon: Icon(Icons.photo),
-                iconSize: 25.0,
-                color: kPrimaryColor,
-                onPressed: null),
-            Expanded(
-                child: TextField(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      height: 70.0,
+      color: kPrimaryLightColor,
+      child: Row(
+        children: [
+          IconButton(
+              icon: Icon(Icons.photo),
+              iconSize: 25.0,
+              color: kPrimaryColor,
+              onPressed: null),
+          Expanded(
+            child: TextField(
               textCapitalization: TextCapitalization.sentences,
               onSubmitted: (value) {
                 sendMessage(conv.id, value);
@@ -97,17 +97,19 @@ class _MessageState extends State<MessagePage> {
               controller: _messageInput,
               decoration:
                   InputDecoration.collapsed(hintText: "Send a message..."),
-            )),
-            IconButton(
-                icon: Icon(Icons.send),
-                iconSize: 25.0,
-                color: kPrimaryColor,
-                onPressed: () {
-                  sendMessage(conv.id, _messageInput.text);
-                  _messageInput.text = "";
-                }),
-          ],
-        ));
+            ),
+          ),
+          IconButton(
+              icon: Icon(Icons.send),
+              iconSize: 25.0,
+              color: kPrimaryColor,
+              onPressed: () {
+                sendMessage(conv.id, _messageInput.text);
+                _messageInput.text = "";
+              }),
+        ],
+      ),
+    );
   }
 
   _buildMessage(Message message, bool isMe) {
@@ -120,7 +122,10 @@ class _MessageState extends State<MessagePage> {
           ? EdgeInsets.only(top: 4.0, bottom: 4.0, left: 90.0)
           : EdgeInsets.only(top: 4.0, bottom: 4.0, right: 90.0),
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      child: Text(message.content,style: TextStyle(fontSize: 20),),
+      child: Text(
+        message.content,
+        style: TextStyle(fontSize: 20),
+      ),
     );
   }
 

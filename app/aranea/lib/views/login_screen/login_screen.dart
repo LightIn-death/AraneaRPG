@@ -29,9 +29,7 @@ class LoginScreen extends StatelessWidget {
     return user;
   }
 
-
-  void saveUserInfo(User user) async{
-
+  void saveUserInfo(User user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt("Id", user.id);
     prefs.setString("Token", user.token);
@@ -44,13 +42,7 @@ class LoginScreen extends StatelessWidget {
     prefs.setInt("Crystals", user.crystals);
     prefs.setString("Description", user.description);
     prefs.setString("Metadescr", user.metadescr);
-
-
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {

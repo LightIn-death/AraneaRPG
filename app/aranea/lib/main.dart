@@ -1,3 +1,4 @@
+import 'package:Aranea/components/splash.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/views/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: kSecondaryLightColor,
           fontFamily: "Montserrat"),
-      home: WelcomeScreen(),
+      home: Splash(),
     );
   }
 }

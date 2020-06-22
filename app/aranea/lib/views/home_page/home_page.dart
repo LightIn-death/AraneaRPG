@@ -14,37 +14,38 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kSecondaryLightColor,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SkillsDetails(),
-            Column(
-              children: [
-                Center(
-                  child: Container(
-                    height: 100.0,
-                    width: 100.0,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RandomPage()));
-                        },
-                        child: Image.asset("assets/icons/Aranea_t.png"),
-                        backgroundColor: kPrimaryColor,
-                      ),
+      backgroundColor: kSecondaryLightColor,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SkillsDetails(),
+          Column(
+            children: [
+              Center(
+                child: Container(
+                  height: 100.0,
+                  width: 100.0,
+                  child: FittedBox(
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RandomPage()));
+                      },
+                      child: Image.asset("assets/icons/Aranea_t.png"),
+                      backgroundColor: kPrimaryColor,
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ],
-        ));
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -52,53 +52,56 @@ class _InboxState extends State<InboxPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: FutureBuilder(
-            future: _getConvs(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.data == null) {
-                return Container(
-                  child: Center(
-                    child: Text('Loading'),
-                  ),
-                );
-              }
+      backgroundColor: Colors.transparent,
+      body: FutureBuilder(
+          future: _getConvs(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return Container(
+                child: Center(
+                  child: Text('Loading'),
+                ),
+              );
+            }
 
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Conv conv = snapshot.data[index];
-                    return FutureBuilder(
-                      future: _getConvsUser(conv),
-                      builder: (context, snapshot2) {
-                        if (snapshot2.hasData) {
-                          print("chargement 3");
-                          User other = snapshot2.data;
-                          return ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(other.image),
-                            ),
-                            title: Text(other.pseudo),
-                            subtitle: Text(conv.lastmessage),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) => MessagePage(
-                                            conv: conv,
-                                            otherUser: other,
-                                          )));
-                            },
-                          );
-                        }
+            return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Conv conv = snapshot.data[index];
+                  return FutureBuilder(
+                    future: _getConvsUser(conv),
+                    builder: (context, snapshot2) {
+                      if (snapshot2.hasData) {
+                        print("chargement 3");
+                        User other = snapshot2.data;
                         return ListTile(
-                          title: Text(conv.id),
-                          subtitle: Text(conv.winner.toString()),
-                          onTap: () {},
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(other.image),
+                          ),
+                          title: Text(other.pseudo),
+                          subtitle: Text(conv.lastmessage),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => MessagePage(
+                                  conv: conv,
+                                  otherUser: other,
+                                ),
+                              ),
+                            );
+                          },
                         );
-                      },
-                    );
-                  });
-            }));
+                      }
+                      return ListTile(
+                        title: Text(conv.id),
+                        subtitle: Text(conv.winner.toString()),
+                        onTap: () {},
+                      );
+                    },
+                  );
+                });
+          }),
+    );
   }
 }

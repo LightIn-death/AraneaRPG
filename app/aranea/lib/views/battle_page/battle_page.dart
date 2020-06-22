@@ -30,73 +30,74 @@ class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: FutureBuilder(
-            future: getUserInfo(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                User user = snapshot.data;
-                return Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text("Coins : " + user.coins.toString()),
-                          GestureDetector(
-                            onTap: () {
-                              print("AVATAR");
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(user.image),
-                              radius: 50,
-                            ),
+      backgroundColor: Colors.transparent,
+      body: FutureBuilder(
+          future: getUserInfo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              User user = snapshot.data;
+              return Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Coins : " + user.coins.toString()),
+                        GestureDetector(
+                          onTap: () {
+                            print("AVATAR");
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(user.image),
+                            radius: 50,
                           ),
-                          Text("Crystals : " + user.crystals.toString()),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (user.sex) Text("Ma") else Text("Fe"),
-                          Text(
-                            user.pseudo,
-                            style: TextStyle(
-                                color: kPrimaryDarkColor, fontSize: 30),
-                          ),
-                          Text(user.age.toString()),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      if (user.description != null)
-                        Text(user.description)
-                      else
-                        Text("Pas de description.."),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      if (user.metadescr != null)
-                        Text(user.metadescr)
-                      else
-                        Text("Pas de Meta description.."),
-                      RoundedButton(
-                        text: "Deconnexion",
-                        press: () {},
-                        color: Colors.red,
-                      )
-                    ],
-                  ),
-                );
-              }
-              return Text("Wait");
-            }));
+                        ),
+                        Text("Crystals : " + user.crystals.toString()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        if (user.sex) Text("Ma") else Text("Fe"),
+                        Text(
+                          user.pseudo,
+                          style:
+                              TextStyle(color: kPrimaryDarkColor, fontSize: 30),
+                        ),
+                        Text(user.age.toString()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    if (user.description != null)
+                      Text(user.description)
+                    else
+                      Text("Pas de description.."),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    if (user.metadescr != null)
+                      Text(user.metadescr)
+                    else
+                      Text("Pas de Meta description.."),
+                    RoundedButton(
+                      text: "Deconnexion",
+                      press: () {},
+                      color: Colors.red,
+                    )
+                  ],
+                ),
+              );
+            }
+            return Text("Wait");
+          }),
+    );
   }
 }
