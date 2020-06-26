@@ -33,6 +33,9 @@ class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Paramètres"),
+      ),
       backgroundColor: Colors.white70,
       body: FutureBuilder(
           future: getUserInfo(),
@@ -42,11 +45,14 @@ class _SettingsState extends State<SettingsPage> {
               return Center(
                 child: SingleChildScrollView(
                   child: Column(
+                    // COL
                     children: [
                       SizedBox(
+                        // MARGE
                         height: 50,
                       ),
                       GestureDetector(
+                        // IMAGE
                         onTap: () async {
                           var image = await ImagePicker()
                               .getImage(source: ImageSource.gallery);
@@ -61,9 +67,11 @@ class _SettingsState extends State<SettingsPage> {
                         ),
                       ),
                       SizedBox(
+                        // MARGE
                         height: 25,
                       ),
                       Row(
+                        // SEXE NOM AGE
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           if (user.sex) Text("Ma") else Text("Fe"),
@@ -76,23 +84,27 @@ class _SettingsState extends State<SettingsPage> {
                         ],
                       ),
                       SizedBox(
+                        // MARGE
                         height: 20,
                       ),
-                      if (user.description != null)
+                      if (user.description != null) // DESCRIPT
                         Text(user.description)
                       else
                         Text("Pas de description.."),
                       SizedBox(
+                        // MARGE
                         height: 50,
                       ),
-                      if (user.metadescr != null)
+                      if (user.metadescr != null) // META
                         Text(user.metadescr)
                       else
                         Text("Pas de Meta description.."),
                       SizedBox(
+                        // MARGE
                         height: 450,
                       ),
                       RoundedButton(
+                        // DECONEXION
                         text: "Deconnexion",
                         press: () {},
                         color: Colors.red,
