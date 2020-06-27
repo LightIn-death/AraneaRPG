@@ -71,7 +71,7 @@ class _RandomState extends State<RandomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: kSecondaryLightColor,
       body: FutureBuilder(
           future: getRandomProfile(),
           builder: (context, snapshot) {

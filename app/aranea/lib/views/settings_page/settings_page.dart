@@ -50,7 +50,7 @@ class _SettingsState extends State<SettingsPage> {
       appBar: AppBar(
         title: Text("Paramètres"),
       ),
-      backgroundColor: Colors.white70,
+      backgroundColor: kSecondaryLightColor,
       body: FutureBuilder(
           future: getUserInfo(),
           builder: (context, snapshot) {
@@ -84,39 +84,101 @@ class _SettingsState extends State<SettingsPage> {
                         // MARGE
                         height: 25,
                       ),
-                      Row(
-                        // SEXE NOM AGE
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (user.sex) Text("Ma") else Text("Fe"),
-                          Text(
-                            user.pseudo,
-                            style: TextStyle(
-                                color: kPrimaryDarkColor, fontSize: 30),
-                          ),
-                          Text(user.age.toString()),
-                        ],
-                      ),
                       SizedBox(
                         // MARGE
                         height: 20,
                       ),
-                      if (user.description != null) // DESCRIPT
-                        Text(user.description)
-                      else
-                        Text("Pas de description.."),
-                      SizedBox(
-                        // MARGE
-                        height: 50,
+
+                      //  ------------------------------ TITRE
+                      Divider(),
+                      Title(
+                        child: Text(
+                          "Profile",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        color: Colors.white,
                       ),
-                      if (user.metadescr != null) // META
-                        Text(user.metadescr)
-                      else
-                        Text("Pas de Meta description.."),
-                      SizedBox(
-                        // MARGE
-                        height: 450,
+                      Divider(),
+                      // --------------------------------------
+
+                      ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: 100, minWidth: 350),
+                        child: Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                          color: Colors.white,
+                          child: (user.description != null)
+                              ? Text(user.description)
+                              : Text("Pas de description.."),
+                        ),
                       ),
+
+                      ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: 10, minWidth: 350),
+                        child: Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                          color: Colors.white,
+                          child: (user.sex) ? Text("Ma") : Text("Fe"),
+                        ),
+                      ),
+
+                      ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: 10, minWidth: 350),
+                        child: Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                          color: Colors.white,
+                          child: Text(
+                            user.pseudo,
+                          ),
+                        ),
+                      ),
+                      ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: 10, minWidth: 350),
+                        child: Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                          color: Colors.white,
+                          child: Text(user.age.toString()),
+                        ),
+                      ),
+
+                      //  ------------------------------ TITRE
+                      Divider(),
+                      Title(
+                        child: Text(
+                          "Plus D'informations",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        color: Colors.white,
+                      ),
+                      Divider(),
+                      // --------------------------------------
+
+                      //  ------------------------------ TITRE
+                      Divider(),
+                      Title(
+                        child: Text(
+                          "Compte",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        color: Colors.white,
+                      ),
+                      Divider(),
+                      // --------------------------------------
                       RoundedButton(
                         // DECONEXION
                         text: "Deconnexion",
