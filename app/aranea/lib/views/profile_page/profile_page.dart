@@ -1,3 +1,5 @@
+import 'package:Aranea/components/description_field.dart';
+import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
 import 'package:Aranea/views/settings_page/settings_page.dart';
@@ -36,9 +38,12 @@ class _ProfileState extends State<ProfilePage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               User user = snapshot.data;
-              return Center(
+              return SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -56,7 +61,14 @@ class _ProfileState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("Coins : " + user.coins.toString()),
+                        RoundedButton(
+                          text: "Coins : " + user.coins.toString(),
+                          press: () {},
+                          width: 0.25,
+                          Wpadding: 2,
+                          Hpadding: 10,
+                          color: kPrimaryColor,
+                        ),
                         GestureDetector(
                           onTap: () {
                             print("AVATAR");
@@ -66,12 +78,22 @@ class _ProfileState extends State<ProfilePage> {
                                     builder: (context) => SettingsPage()));
                           },
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(user.image),
-                            radius: 60,
-                            backgroundColor: kPrimaryColor,
+                            backgroundColor: Colors.blue,
+                            radius: 70.0,
+                            child: CircleAvatar(
+                              radius: 68.0,
+                              backgroundImage: NetworkImage(user.image),
+                            ),
                           ),
                         ),
-                        Text("Crystals : " + user.crystals.toString()),
+                        RoundedButton(
+                          text: "Crystals : " + user.crystals.toString(),
+                          press: () {},
+                          width: 0.25,
+                          Wpadding: 2,
+                          Hpadding: 10,
+                          color: kPrimaryColor,
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -80,42 +102,21 @@ class _ProfileState extends State<ProfilePage> {
                     SizedBox(
                       height: 20,
                     ),
-                    DescriptionField(user: user),
-                    SizedBox(
-                      height: 50,
+                    Title(color: Colors.black, child: Text("Description")),
+                    DescriptionField(
+                      text: user.description,
                     ),
-                    if (user.metadescr != null)
-                      Text(user.metadescr)
-                    else
-                      Text("Pas de Meta description.."),
+                    Divider(),
+                    Title(color: Colors.black, child: Text("Meta Description")),
+                    DescriptionField(
+                      text: user.metadescr,
+                    ),
                   ],
                 ),
               );
             }
             return Text("Wait");
           }),
-    );
-  }
-}
-
-class DescriptionField extends StatelessWidget {
-  const DescriptionField({
-    Key key,
-    @required this.user,
-  }) : super(key: key);
-
-  final User user;
-
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: 25),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        color: Colors.white,
-        child: Text(user.description),
-      ),
     );
   }
 }

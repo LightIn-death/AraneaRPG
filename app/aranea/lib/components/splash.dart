@@ -19,17 +19,20 @@ class _SplashState extends State<Splash> {
   void autoLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final alreadyAuth = prefs.getInt("Id");
-
+    print("Welllcome, Id : " + alreadyAuth.toString());
     if (alreadyAuth != null) {
       isAuth = true;
     }
   }
 
+  double _height = 50;
+
   @override
   void initState() {
     super.initState();
+    _height = 150;
     autoLogin();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -42,8 +45,15 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Image.asset("assets/icons/ic_launcher.png"),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: AnimatedContainer(
+          duration: Duration(seconds: 2),
+          height: _height,
+          child: Image.asset("assets/icons/ic_launcher.png"),
+        ),
+      ),
     );
   }
 }

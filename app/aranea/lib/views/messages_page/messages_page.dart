@@ -90,6 +90,7 @@ class _MessageState extends State<MessagePage> {
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
+              keyboardType: TextInputType.multiline,
               onSubmitted: (value) {
                 sendMessage(conv.id, value);
                 _messageInput.text = "";
@@ -134,14 +135,17 @@ class _MessageState extends State<MessagePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(otherUser.image),
-            ),
-            Text(otherUser.pseudo),
-          ],
+        title: Center(
+          widthFactor: 0.1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(otherUser.image),
+              ),
+              Text(otherUser.pseudo),
+            ],
+          ),
         ),
       ),
       backgroundColor: Colors.white,

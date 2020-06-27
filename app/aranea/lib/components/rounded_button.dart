@@ -8,6 +8,8 @@ class RoundedButton extends StatelessWidget {
   final Function press;
   final Color color, textColor;
   final num width;
+  final double Wpadding;
+  final double Hpadding;
 
   const RoundedButton({
     Key key,
@@ -16,6 +18,8 @@ class RoundedButton extends StatelessWidget {
     this.color = kPrimaryColor,
     this.textColor = Colors.white,
     this.width = 0.8,
+    this.Wpadding = 40,
+    this.Hpadding = 20,
   }) : super(key: key);
 
   @override
@@ -24,9 +28,10 @@ class RoundedButton extends StatelessWidget {
     return Container(
       width: size.width * width,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
+        borderRadius: BorderRadius.circular(30),
         child: FlatButton(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+          padding:
+              EdgeInsets.symmetric(vertical: Hpadding, horizontal: Wpadding),
           onPressed: press,
           color: color,
           child: Text(

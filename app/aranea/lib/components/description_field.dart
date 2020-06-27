@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class DescriptionField extends StatelessWidget {
+  final String text;
+
   const DescriptionField({
     Key key,
-    @required this.user,
+    this.text,
+//    @required this.toShow,
   }) : super(key: key);
-
-  final User user;
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: 25),
+      constraints: BoxConstraints(minHeight: 100, minWidth: 350),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         color: Colors.white,
-        child: (user.description != null)
-            ? Text(user.description)
-            : Text("Pas de description.."),
+        child: (text != null) ? Text(text) : Text("Pas de description.."),
       ),
     );
   }

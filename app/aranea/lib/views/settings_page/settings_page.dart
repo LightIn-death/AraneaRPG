@@ -1,6 +1,7 @@
 import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
+import 'package:Aranea/views/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +29,19 @@ class _SettingsState extends State<SettingsPage> {
         prefs.getString("Description"),
         prefs.getString("Metadescr"));
     return user;
+  }
+
+  void logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("Id", null);
+    prefs.setString("Token", null);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WelcomeScreen(),
+      ),
+      (Route<dynamic> route) => false,
+    );
   }
 
   @override
@@ -108,7 +122,11 @@ class _SettingsState extends State<SettingsPage> {
                         text: "Deconnexion",
                         press: () {},
                         color: Colors.red,
-                      )
+                      ),
+                      SizedBox(
+                        // MARGE
+                        height: 50,
+                      ),
                     ],
                   ),
                 ),
