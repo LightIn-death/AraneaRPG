@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryDarkColor = Color(0xFF6D6875);
-const kPrimaryColor = Color(0xFFB5838D);
-const kPrimaryLightColor = Color(0xFFE5989B);
-const kSecondaryColor = Color(0xFFFFB4A2);
-const kSecondaryLightColor = Color(0xFFFFCDB2);
+const kPrimaryDarkColor = Color(0xFF5a4c6a);
+const kPrimaryColor = Color(0xFF93859c);
+const kPrimaryLightColor = Color(0xFFaea3b5);
+const kSecondaryColor = Color(0xFF9f90a9);
+const kSecondaryLightColor = Color(0xFFc8bfce);
 
-const kApiUrl = "http://192.168.1.27/araneaRPG/api/";
+const kApiUrl = "http://api.aranea.me";

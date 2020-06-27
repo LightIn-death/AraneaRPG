@@ -10,51 +10,45 @@ class TabsContainer extends StatefulWidget {
 }
 
 class _TabsState extends State<TabsContainer> {
-  int _currentIndex = 1;
   var _pages = [ProfilePage(), HomePage(), InboxPage()];
   var _pageController = PageController(initialPage: 1);
+  int tabIndex = 1;
 
   @override
   Widget build(BuildContext context) {
+    tabIndex = DefaultTabController.of(context).index;
+
     return Scaffold(
       backgroundColor: kSecondaryLightColor,
       appBar: AppBar(
         backgroundColor: kSecondaryColor,
         centerTitle: true,
-        title: Text("Aranea"),
+        title: TabBar(
+          tabs: [
+            Tab(icon: Icon(Icons.account_circle), text: "Profile"),
+            Tab(
+              child: Center(child: Text("Aranea")),
+            ),
+            Tab(icon: Icon(Icons.sms), text: "Messages"),
+          ],
+          onTap: (index) {
+            setState(() {
+              tabIndex = index;
+              _pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 400), curve: Curves.linear);
+            });
+          },
+        ),
       ),
       body: PageView(
         controller: _pageController,
         children: _pages,
         onPageChanged: (index) {
           setState(() {
-            _currentIndex = index;
+            tabIndex = index;
           });
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: kSecondaryColor,
-          currentIndex: _currentIndex,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), title: Text("Profile")),
-            BottomNavigationBarItem(
-                icon: Icon(null),
-                title: Text(
-                  "Aranea",
-                  style: TextStyle(fontSize: 25),
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.sms), title: Text("Messages")),
-          ],
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-              _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 400), curve: Curves.linear);
-            });
-          }),
     );
   }
 }
