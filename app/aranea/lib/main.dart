@@ -13,6 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Aranea',
       theme: ThemeData(
+          backgroundColor: kSecondaryLightColor,
+          accentColor: kPrimaryDarkColor,
+          dividerTheme: DividerThemeData(
+            color: kPrimaryDarkColor,
+          ),
+          splashColor: kSecondaryLightColor,
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: kSecondaryLightColor,
           fontFamily: "Montserrat"),

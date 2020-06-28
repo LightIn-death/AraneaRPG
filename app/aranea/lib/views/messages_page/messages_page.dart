@@ -148,7 +148,7 @@ class _MessageState extends State<MessagePage> {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: kSecondaryLightColor,
       body: Column(
         children: [
           Expanded(
@@ -158,7 +158,9 @@ class _MessageState extends State<MessagePage> {
                   if (snapshot.data == null) {
                     return Container(
                       child: Center(
-                        child: Text('Loading'),
+                        child: CircularProgressIndicator(
+                          backgroundColor: kPrimaryLightColor,
+                        ),
                       ),
                     );
                   }

@@ -128,7 +128,16 @@ class _SkillsState extends State<SkillsDetails> {
             ],
           );
         }
-        return Text("Loading Skills");
+        return Column(
+          children: [
+            SizedBox(
+              height: 60,
+            ),
+            CircularProgressIndicator(
+              backgroundColor: kPrimaryLightColor,
+            ),
+          ],
+        );
       },
     );
   }

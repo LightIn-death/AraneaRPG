@@ -59,7 +59,9 @@ class _InboxState extends State<InboxPage> {
             if (snapshot.data == null) {
               return Container(
                 child: Center(
-                  child: Text('Loading'),
+                  child:CircularProgressIndicator(
+                    backgroundColor: kPrimaryLightColor,
+                  ),
                 ),
               );
             }
@@ -94,6 +96,9 @@ class _InboxState extends State<InboxPage> {
                         );
                       }
                       return ListTile(
+                        leading: CircularProgressIndicator(
+                          backgroundColor: kPrimaryLightColor,
+                        ),
                         title: Text(conv.id),
                         subtitle: Text(conv.winner.toString()),
                         onTap: () {},
