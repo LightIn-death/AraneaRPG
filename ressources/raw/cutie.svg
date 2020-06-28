@@ -1,1 +1,143 @@
-<svg id="Layer_3" data-name="Layer 3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 692.82"><defs><style>.cls-1{fill:#665670;}.cls-2{fill:#5a4c63;}.cls-3{fill:#9f90a9;}.cls-4{fill:#93859c;}.cls-5{fill:#c8bfce;}.cls-6{fill:#aea3b5;}.cls-7{fill:#232621;}.cls-8{fill:none;stroke:#ccc;stroke-linecap:round;stroke-linejoin:round;stroke-width:15px;}</style></defs><title>cutie</title><path class="cls-1" d="M500,788.68h0A638.59,638.59,0,0,0,250,644.34h0a638.45,638.45,0,0,0,0-288.68h0A638.59,638.59,0,0,0,500,211.33V153.59a766.16,766.16,0,0,1-300,173.2h0a766.34,766.34,0,0,1,0,346.41h0A766.3,766.3,0,0,1,500,846.41h0V788.67Z" transform="translate(-200 -153.59)"/><path class="cls-2" d="M800,326.8h0A766.3,766.3,0,0,1,500,153.59h0v57.74h0A638.59,638.59,0,0,0,750,355.66h0a638.45,638.45,0,0,0,0,288.68h0A638.59,638.59,0,0,0,500,788.67v57.74a766.16,766.16,0,0,1,300-173.2h0a766.3,766.3,0,0,1,0-346.4Z" transform="translate(-200 -153.59)"/><path class="cls-3" d="M250,355.66h0a638.45,638.45,0,0,1,0,288.68h0A638.59,638.59,0,0,1,500,788.67h0V730.94h0A510.88,510.88,0,0,0,300,615.47h0a510.8,510.8,0,0,0,0-230.94h0A510.88,510.88,0,0,0,500,269.06V211.33A638.59,638.59,0,0,1,250,355.66Z" transform="translate(-200 -153.59)"/><path class="cls-4" d="M500,269.06h0A510.88,510.88,0,0,0,700,384.53h0a510.8,510.8,0,0,0,0,230.94h0A510.88,510.88,0,0,0,500,730.94v57.73A638.59,638.59,0,0,1,750,644.34h0a638.45,638.45,0,0,1,0-288.68h0A638.59,638.59,0,0,1,500,211.33h0v57.73Z" transform="translate(-200 -153.59)"/><path class="cls-5" d="M300,384.53h0a510.8,510.8,0,0,1,0,230.94h0A510.88,510.88,0,0,1,500,730.94h0V269.06A510.88,510.88,0,0,1,300,384.53Z" transform="translate(-200 -153.59)"/><path class="cls-6" d="M700,615.47h0a510.8,510.8,0,0,1,0-230.94h0A510.88,510.88,0,0,1,500,269.06h0V730.94A510.88,510.88,0,0,1,700,615.47Z" transform="translate(-200 -153.59)"/><circle cx="300" cy="476.52" r="30"/><path class="cls-7" d="M470,630.11a30,30,0,0,0,30,30v-60A30,30,0,0,0,470,630.11Z" transform="translate(-200 -153.59)"/><circle cx="300" cy="327.72" r="100"/><rect x="450" y="360.6" width="100" height="100" transform="translate(236.79 -386.88) rotate(45)"/><path class="cls-7" d="M429.29,410.6A100,100,0,0,0,500,581.31V339.89Z" transform="translate(-200 -153.59)"/><path class="cls-8" d="M475.2,407.12l-24.69,24.69A69.51,69.51,0,0,0,430,481.31" transform="translate(-200 -153.59)"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   inkscape:export-ydpi="139.4847"
+   inkscape:export-xdpi="139.4847"
+   inkscape:export-filename="C:\wamp64\www\araneaRPG\ressources\raw\cutie.png"
+   sodipodi:docname="cutie.svg"
+   version="1.1"
+   viewBox="0 0 600 692.82"
+   data-name="Layer 3"
+   id="Layer_3">
+  <metadata
+     id="metadata901">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:current-layer="Layer_3"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="1912"
+     inkscape:cy="451.92539"
+     inkscape:cx="191.98547"
+     inkscape:zoom="0.85425995"
+     inkscape:snap-page="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:object-paths="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:bbox-nodes="true"
+     inkscape:bbox-paths="true"
+     inkscape:snap-center="true"
+     inkscape:snap-to-guides="true"
+     inkscape:snap-grids="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-global="true"
+     inkscape:snap-nodes="true"
+     inkscape:snap-object-midpoints="true"
+     showgrid="false"
+     id="namedview899"
+     inkscape:window-height="1027"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <defs
+     id="defs870">
+    <style
+       id="style868">.cls-1{fill:#665670;}.cls-2{fill:#5a4c63;}.cls-3{fill:#9f90a9;}.cls-4{fill:#93859c;}.cls-5{fill:#c8bfce;}.cls-6{fill:#aea3b5;}.cls-7{fill:#232621;}.cls-8{fill:none;stroke:#ccc;stroke-linecap:round;stroke-linejoin:round;stroke-width:15px;}</style>
+  </defs>
+  <title
+     id="title872">cutie</title>
+  <rect
+     y="-5.9727516"
+     x="-52.382751"
+     height="704.7655"
+     width="704.7655"
+     id="rect907"
+     style="fill:#000000;stroke-width:7.68914;fill-opacity:0" />
+  <path
+     id="path874"
+     transform="translate(-200 -153.59)"
+     d="M500,788.68h0A638.59,638.59,0,0,0,250,644.34h0a638.45,638.45,0,0,0,0-288.68h0A638.59,638.59,0,0,0,500,211.33V153.59a766.16,766.16,0,0,1-300,173.2h0a766.34,766.34,0,0,1,0,346.41h0A766.3,766.3,0,0,1,500,846.41h0V788.67Z"
+     class="cls-1" />
+  <path
+     id="path876"
+     transform="translate(-200 -153.59)"
+     d="M800,326.8h0A766.3,766.3,0,0,1,500,153.59h0v57.74h0A638.59,638.59,0,0,0,750,355.66h0a638.45,638.45,0,0,0,0,288.68h0A638.59,638.59,0,0,0,500,788.67v57.74a766.16,766.16,0,0,1,300-173.2h0a766.3,766.3,0,0,1,0-346.4Z"
+     class="cls-2" />
+  <path
+     id="path878"
+     transform="translate(-200 -153.59)"
+     d="M250,355.66h0a638.45,638.45,0,0,1,0,288.68h0A638.59,638.59,0,0,1,500,788.67h0V730.94h0A510.88,510.88,0,0,0,300,615.47h0a510.8,510.8,0,0,0,0-230.94h0A510.88,510.88,0,0,0,500,269.06V211.33A638.59,638.59,0,0,1,250,355.66Z"
+     class="cls-3" />
+  <path
+     id="path880"
+     transform="translate(-200 -153.59)"
+     d="M500,269.06h0A510.88,510.88,0,0,0,700,384.53h0a510.8,510.8,0,0,0,0,230.94h0A510.88,510.88,0,0,0,500,730.94v57.73A638.59,638.59,0,0,1,750,644.34h0a638.45,638.45,0,0,1,0-288.68h0A638.59,638.59,0,0,1,500,211.33h0v57.73Z"
+     class="cls-4" />
+  <path
+     id="path882"
+     transform="translate(-200 -153.59)"
+     d="M300,384.53h0a510.8,510.8,0,0,1,0,230.94h0A510.88,510.88,0,0,1,500,730.94h0V269.06A510.88,510.88,0,0,1,300,384.53Z"
+     class="cls-5" />
+  <path
+     id="path884"
+     transform="translate(-200 -153.59)"
+     d="M700,615.47h0a510.8,510.8,0,0,1,0-230.94h0A510.88,510.88,0,0,1,500,269.06h0V730.94A510.88,510.88,0,0,1,700,615.47Z"
+     class="cls-6" />
+  <circle
+     id="circle886"
+     r="30"
+     cy="476.52"
+     cx="300" />
+  <path
+     id="path888"
+     transform="translate(-200 -153.59)"
+     d="M470,630.11a30,30,0,0,0,30,30v-60A30,30,0,0,0,470,630.11Z"
+     class="cls-7" />
+  <circle
+     id="circle890"
+     r="100"
+     cy="327.72"
+     cx="300" />
+  <rect
+     id="rect892"
+     transform="rotate(45,585.40047,92.390815)"
+     height="100"
+     width="100"
+     y="360.60001"
+     x="450" />
+  <path
+     id="path894"
+     transform="translate(-200 -153.59)"
+     d="M429.29,410.6A100,100,0,0,0,500,581.31V339.89Z"
+     class="cls-7" />
+  <path
+     id="path896"
+     transform="translate(-200 -153.59)"
+     d="M475.2,407.12l-24.69,24.69A69.51,69.51,0,0,0,430,481.31"
+     class="cls-8" />
+</svg>
