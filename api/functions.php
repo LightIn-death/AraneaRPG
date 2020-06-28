@@ -72,7 +72,7 @@ function getRandomAccount($userId)
 
     global $pdo;
     $query = $pdo->prepare("select u.id from convs c Full join users u on c.winner = u.id or
- c.looser = u.id where u.id != :id  and c.looser is null  and c.winner is null order by random() limit 1; ");
+ c.looser = u.id where u.id != :id  and ((c.looser is null  and c.winner is null ) OR (c.looser !=u.id  and c.winner  !=u.id)) order by random() limit 1; ");
     $query->execute(['id' => $userId]);
     return $query->fetch();
 }
@@ -267,7 +267,7 @@ function uploadProfilePicture($token, $image)
     $array = explode(".", $image["name"]);
     $extension = "." . strtolower(end($array));
     $target = "images/profile/" . uniqid('', true) . $extension;
-//    if($image[""])
+    //    if($image[""])
 
     $userId = getUserIdByToken($token);
 
@@ -280,15 +280,4 @@ function uploadProfilePicture($token, $image)
     } else {
         return "fail";
     }
-
-
 }
-
-
-
-
-
-
-
-
-

@@ -185,6 +185,18 @@ class _SettingsState extends State<SettingsPage> {
                         press: () {},
                         color: Colors.red,
                       ),
+                      // MARGE
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Center(
+                        child: Text(
+                          "V 0.1",
+                          style: TextStyle(
+                            fontSize: 10,
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         // MARGE
                         height: 50,
@@ -194,7 +206,9 @@ class _SettingsState extends State<SettingsPage> {
                 ),
               );
             }
-            return Text("Wait");
+            return CircularProgressIndicator(
+              backgroundColor: kPrimaryLightColor,
+            );
           }),
     );
   }
