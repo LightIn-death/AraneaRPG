@@ -7,3 +7,4 @@ const kSecondaryColor = Color(0xFF9f90a9);
 const kSecondaryLightColor = Color(0xFFc8bfce);
 
 const kApiUrl = "https://api.aranea.me";
+const kImageUrl = "https://api.aranea.me/images/profile/";

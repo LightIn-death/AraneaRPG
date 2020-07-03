@@ -76,7 +76,7 @@ class _SettingsState extends State<SettingsPage> {
 //                          var length = await image.
                         },
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(user.image),
+                          backgroundImage: NetworkImage(kImageUrl + user.image),
                           radius: 50,
                         ),
                       ),

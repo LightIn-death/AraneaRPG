@@ -59,7 +59,7 @@ class _InboxState extends State<InboxPage> {
             if (snapshot.data == null) {
               return Container(
                 child: Center(
-                  child:CircularProgressIndicator(
+                  child: CircularProgressIndicator(
                     backgroundColor: kPrimaryLightColor,
                   ),
                 ),
@@ -78,7 +78,8 @@ class _InboxState extends State<InboxPage> {
                         User other = snapshot2.data;
                         return ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(other.image),
+                            backgroundImage:
+                                NetworkImage(kImageUrl + other.image),
                           ),
                           title: Text(other.pseudo),
                           subtitle: Text(conv.lastmessage),

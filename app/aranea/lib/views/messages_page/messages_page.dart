@@ -141,7 +141,7 @@ class _MessageState extends State<MessagePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(otherUser.image),
+                backgroundImage: NetworkImage(kImageUrl + otherUser.image),
               ),
               Text(otherUser.pseudo),
             ],
