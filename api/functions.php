@@ -266,8 +266,12 @@ function uploadProfilePicture($token, $image)
 
     $array = explode(".", $image["name"]);
     $extension = "." . strtolower(end($array));
-    $target = uniqid('', true) . $extension;
+    $uuid =  uniqid('', true) . $extension;
+    $target = "images/profile/" . $uuid;
     //    if($image[""])
+
+
+
 
     $userId = getUserIdByToken($token);
 
@@ -276,8 +280,7 @@ function uploadProfilePicture($token, $image)
 
     if (move_uploaded_file($_FILES['image']["tmp_name"], $target)) {
         $query->execute(['id' => $userId, "target" => $target]);
-        return "ok";
+        return $uuid;
     }
-        return "image no send";
-    
+    return "image no send";
 }

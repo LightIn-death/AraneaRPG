@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:Aranea/components/rounded_button.dart';
 import 'package:Aranea/constants.dart';
 import 'package:Aranea/models/Models.dart';
 import 'package:Aranea/views/welcome_screen/welcome_screen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
+import 'package:dio/dio.dart' as dio;
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -70,10 +74,31 @@ class _SettingsState extends State<SettingsPage> {
                         onTap: () async {
                           var image = await ImagePicker()
                               .getImage(source: ImageSource.gallery);
-                          if (image != null) {}
-                          var stream = new http.ByteStream(
-                              DelegatingStream.typed(image.openRead()));
-//                          var length = await image.
+                          if (image != null) {
+                            String filePath = image.path;
+                            if (filePath.indexOf('file://') == 0)
+                              filePath = filePath.split('file://')[1];
+
+                            var formData = FormData.fromMap({
+                              'image': await MultipartFile.fromFile(filePath,
+                                  filename: filePath),
+                              'token': user.token,
+                              'action': 'upload_profile_pic',
+                            });
+
+                            var dio = Dio();
+
+                            var response = new Response(); //Response from Dio
+                            response = await dio.post(kApiUrl, data: formData);
+
+                            var UUID = response.data.toString();
+
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+
+                            prefs.setString("Image", UUID.replaceAll('"', ''));
+                            setState(() {});
+                          }
                         },
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(kImageUrl + user.image),
