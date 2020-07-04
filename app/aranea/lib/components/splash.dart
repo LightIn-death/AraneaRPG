@@ -25,12 +25,12 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  double _height = 50;
+  double _height = 80;
 
   @override
   void initState() {
     super.initState();
-    _height = 150;
+    _height = 180;
     autoLogin();
     Future.delayed(Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(

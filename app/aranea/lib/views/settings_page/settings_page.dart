@@ -35,6 +35,33 @@ class _SettingsState extends State<SettingsPage> {
     return user;
   }
 
+  void uploadImage(User user) async {
+    var image = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (image != null) {
+      String filePath = image.path;
+      if (filePath.indexOf('file://') == 0)
+        filePath = filePath.split('file://')[1];
+
+      var formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(filePath, filename: filePath),
+        'token': user.token,
+        'action': 'upload_profile_pic',
+      });
+
+      var dio = Dio();
+
+      var response = new Response(); //Response from Dio
+      response = await dio.post(kApiUrl, data: formData);
+
+      var UUID = response.data.toString();
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      prefs.setString("Image", UUID.replaceAll('"', ''));
+      setState(() {});
+    }
+  }
+
   void logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt("Id", null);
@@ -60,6 +87,10 @@ class _SettingsState extends State<SettingsPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               User user = snapshot.data;
+
+              var _descriptionController =
+                  new TextEditingController(text: user.description);
+
               return Center(
                 child: SingleChildScrollView(
                   child: Column(
@@ -71,34 +102,10 @@ class _SettingsState extends State<SettingsPage> {
                       ),
                       GestureDetector(
                         // IMAGE
-                        onTap: () async {
-                          var image = await ImagePicker()
-                              .getImage(source: ImageSource.gallery);
-                          if (image != null) {
-                            String filePath = image.path;
-                            if (filePath.indexOf('file://') == 0)
-                              filePath = filePath.split('file://')[1];
-
-                            var formData = FormData.fromMap({
-                              'image': await MultipartFile.fromFile(filePath,
-                                  filename: filePath),
-                              'token': user.token,
-                              'action': 'upload_profile_pic',
-                            });
-
-                            var dio = Dio();
-
-                            var response = new Response(); //Response from Dio
-                            response = await dio.post(kApiUrl, data: formData);
-
-                            var UUID = response.data.toString();
-
-                            final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-
-                            prefs.setString("Image", UUID.replaceAll('"', ''));
-                            setState(() {});
-                          }
+                        onTap: () {
+                          setState(() {
+                            uploadImage(user);
+                          });
                         },
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(kImageUrl + user.image),
@@ -135,9 +142,9 @@ class _SettingsState extends State<SettingsPage> {
                           padding:
                               EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                           color: Colors.white,
-                          child: (user.description != null)
-                              ? Text(user.description)
-                              : Text("Pas de description.."),
+                          child: TextField(
+                            controller: _descriptionController,
+                          ),
                         ),
                       ),
 
