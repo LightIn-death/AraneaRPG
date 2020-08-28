@@ -22,7 +22,8 @@ jobs:
         uses:  fifsky/ssh-action@master
         with:
           command: |
-            cd /tmp
+            sudo -s
+            cd
             ls -a
           host: ${{ secrets.HOST }}
           port : ${{ secrets.PORT }}
