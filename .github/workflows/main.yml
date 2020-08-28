@@ -22,6 +22,7 @@ jobs:
         uses:  fifsky/ssh-action@master
         with:
           command: |
+            sleep 5
             sudo -s
             pct enter 222
             cd /var/www/AraneaRPG/
