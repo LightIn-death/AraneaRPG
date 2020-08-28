@@ -28,4 +28,4 @@ jobs:
           user: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSPHRASE }}
           port :  ${{ secrets.PORT }}
-          command: ls -a
+          commands: ls -a
