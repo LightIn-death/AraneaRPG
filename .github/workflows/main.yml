@@ -24,8 +24,11 @@ jobs:
           command: |
             sleep 5
             sudo -s
+            sleep 5
             pct enter 222
+            sleep 5
             cd /var/www/AraneaRPG/
+            sleep 5
             ls -a
           host: ${{ secrets.HOST }}
           port : ${{ secrets.PORT }}
