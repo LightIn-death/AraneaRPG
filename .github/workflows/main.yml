@@ -23,7 +23,8 @@ jobs:
         with:
           command: |
             sudo -s
-            cd
+            pct enter 222
+            cd /var/www/AraneaRPG/
             ls -a
           host: ${{ secrets.HOST }}
           port : ${{ secrets.PORT }}
