@@ -27,4 +27,4 @@ jobs:
           host: ${{ secrets.HOST }}
           port : ${{ secrets.PORT }}
           user: stage
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          key: ${{ secrets.PRIVATE_KEY }}
