@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: CD
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -22,10 +22,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: ls -a via ssh
-        uses: garygrossgarten/github-action-ssh@release
+        uses: docker://evaneos/ssh-action:0.1.0
         with:
-          command: ls -a
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          hosts: ${{ secrets.HOST }}
+          user: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSPHRASE }}
           port :  ${{ secrets.PORT }}
+          command: ls -a
