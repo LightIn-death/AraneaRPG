@@ -27,5 +27,5 @@ jobs:
             ls -a
           host: ${{ secrets.HOST }}
           port : ${{ secrets.PORT }}
-          user: stage
+          user: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
