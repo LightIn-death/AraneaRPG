@@ -24,8 +24,8 @@ jobs:
       - name: ls -a via ssh
         uses: docker://evaneos/ssh-action:0.1.0
         with:
-          hosts: ${{ secrets.HOST }}
-          user: ${{ secrets.USERNAME }}
+          hosts: aranea.me
+          port : 80
+          user: stage
           private_key: ${{ secrets.PRIVATE_KEY }}
-          port :  ${{ secrets.PORT }}
           commands: ls -a
