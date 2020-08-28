@@ -7,8 +7,6 @@ name: CD
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,12 +18,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
       - name: ls -a via ssh
-        uses: docker://evaneos/ssh-action:0.1.0
+        uses:  fifsky/ssh-action@master
         with:
-          hosts: aranea.me
-          port : 80
+          command: |
+            cd /tmp
+            ls -a
+          host: ${{ secrets.HOST }}
+          port : ${{ secrets.PORT }}
           user: stage
           private_key: ${{ secrets.PRIVATE_KEY }}
-          commands: ls -a
