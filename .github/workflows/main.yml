@@ -19,20 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ls -a via ssh
-        uses:  fifsky/ssh-action@master
-        with:
-          command: |
-            sleep 5
-            sudo -s
-            sleep 5
-            pct enter 222
-            sudo -s
-            pct enter 222
-            sleep 5
-            cd /var/www/AraneaRPG/
-            sleep 5
-            ls -a
-          host: ${{ secrets.HOST }}
-          port : ${{ secrets.PORT }}
-          user: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
+      - run : |
+          ${{ secrets.PRIVATE_KEY }} > id_rsa
+          ssh lightin@88.99.90.21 -i ./id_rsa
+          ls
