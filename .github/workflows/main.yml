@@ -25,4 +25,4 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key : ${{ secrets.PRIVATE_KEY }}
-          script: sudo -s && pct enter 222 && ls -la
+          script: su root  -c" pct enter 222" && ls -la
