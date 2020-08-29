@@ -25,6 +25,4 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           key : ${{ secrets.PRIVATE_KEY }}
-          script: | 
-            sudo pct console 222
-            ls -la
+          script: sudo pct exec 222 "ls -la"
