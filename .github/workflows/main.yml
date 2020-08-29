@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ls -a via ssh
-      - run : |
+        run : |
           ${{ secrets.PRIVATE_KEY }} > id_rsa
           ssh lightin@88.99.90.21 -i ./id_rsa
           ls
