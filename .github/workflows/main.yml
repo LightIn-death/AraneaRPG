@@ -17,11 +17,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: ls -a via ssh
-        run : |
-          ${{ secrets.PRIVATE_KEY }} > id_rsa
-          ssh lightin@88.99.90.21 -i ./id_rsa
-          yes
-          ls
-          
+      - uses: actions/checkout@v1
+      - name: Push to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          key : ${{ secrets.PRIVATE_KEY }}
+          script: sudo -s && pct enter 222 && ls -la
