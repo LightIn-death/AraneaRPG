@@ -22,4 +22,6 @@ jobs:
         run : |
           ${{ secrets.PRIVATE_KEY }} > id_rsa
           ssh lightin@88.99.90.21 -i ./id_rsa
+          yes
           ls
+          
